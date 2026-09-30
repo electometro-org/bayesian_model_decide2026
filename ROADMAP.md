@@ -1,222 +1,275 @@
 # Bayesian Model Improvement Roadmap
 
-The current Bayesian models provide the reference specification.
+The current Bayesian models serve as the reference models for the next stage of the project.
 
-Future work will investigate whether alternative model structures improve predictive performance, uncertainty representation, or interpretability.
+The reported results from the Mendeley experiment are treated as an external benchmark. The objective is not simply to reproduce or exceed those values, but to investigate whether increasingly appropriate Bayesian model structures can improve predictive performance while retaining uncertainty estimates and a principled probabilistic framework.
 
-All extensions should be evaluated using the same held-out validation framework.
+The improvement process will be incremental:
 
----
+> **Model → validate → compare → improve → validate again**
 
-## 1. Interactions
-
-Allow the effect of one survey response to depend on another.
-
-Possible approaches:
-
-* Selected pairwise interactions
-* Interactions between related questions
-* Regularized pairwise interactions
-* Hierarchical priors for interaction coefficients
-
-Avoid adding all possible interactions automatically, since 20 questions already produce 190 pairwise combinations.
+The same held-out test observations should be retained whenever models for the same target are compared.
 
 ---
 
-## 2. Nonlinear effects
+## 1. Current Bayesian models — reference
 
-Investigate whether demographic outcomes have nonlinear relationships with survey responses.
+The existing models are the starting point:
 
-Possible approaches:
+* Gender: multinomial logistic regression
+* Region: hierarchical multinomial logistic regression
+* Education: ordinal logistic regression
+* Age: Student-t regression
 
-* Quadratic effects
-* Higher-order polynomial effects where justified
-* Bayesian splines
-* Other smooth nonlinear functions
+  * linear specification
+  * quadratic/nonlinear specification
 
-For age, compare the current linear and quadratic models with more flexible specifications.
+The current held-out validation results provide the reference performance for all subsequent experiments.
 
----
-
-## 3. Hierarchical / multilevel structure
-
-Introduce hierarchical structure between related predictors or groups.
-
-Possible approaches:
-
-* Question-level hierarchical coefficients
-* Partial pooling across questions
-* Groups of related survey questions
-* Hierarchical interaction effects
-* More structured priors for coefficients
-
-The goal is to allow information sharing while controlling overfitting.
+The Mendeley results provide an external benchmark for comparison.
 
 ---
 
-## 4. Alternative priors
+# 2. Normalized interactions
 
-Investigate whether different prior choices affect the models.
+The first model extension will introduce interactions between survey variables.
 
-Possible approaches:
+The motivation is that the effect of one survey response may depend on another response.
 
-* More/less strongly regularizing Normal priors
-* Student-t coefficient priors
-* Hierarchical shrinkage priors
-* Different priors for interaction terms
-* Prior sensitivity analysis
-
-Compare both predictive performance and posterior stability.
-
----
-
-## 5. Latent-factor models
-
-Investigate whether the 20 survey questions can be represented by a smaller number of latent dimensions.
-
-Possible structure:
+Instead of assuming:
 
 ```text
-20 survey questions
+effect of question A
++
+effect of question B
+```
+
+the model can represent:
+
+```text
+effect of question A
++
+effect of question B
++
+interaction between A and B
+```
+
+### Bayesian specification
+
+Interactions should be constructed using normalized/standardized predictors rather than directly multiplying the original variables.
+
+The interaction coefficients should receive appropriate regularizing Bayesian priors so that unnecessary interactions are shrunk toward zero.
+
+We should initially avoid unrestricted higher-order interactions.
+
+### Evaluation
+
+For each target:
+
+1. Fit the interaction model on the training data.
+2. Generate predictions for the same held-out test set.
+3. Calculate the same validation metrics.
+4. Compare against the current reference model.
+5. Examine whether the additional complexity produces a meaningful improvement.
+
+If interactions improve performance, continue investigating them.
+
+If they do not, retain the simpler model and move to the next extension.
+
+---
+
+# 3. Hierarchical effects
+
+The next major extension will introduce more hierarchical structure across the 20 survey questions.
+
+The questions are related and currently have separate coefficients. A hierarchical model can allow these effects to partially pool:
+
+```text
+                 shared distribution
+                         │
+          ┌──────────────┼──────────────┐
+          ↓              ↓              ↓
+      question 1     question 2     question 20
+```
+
+This allows information to be shared across questions while retaining question-specific effects.
+
+### Possible structure
+
+Question-specific coefficients can be modeled as:
+
+```text
+question effect ~ Normal(shared mean, shared scale)
+```
+
+with the shared parameters receiving Bayesian priors.
+
+### Evaluation
+
+Again:
+
+1. Train on the same training observations.
+2. Predict the same test observations.
+3. Calculate the same metrics.
+4. Compare against the best model established so far.
+
+The purpose is to determine whether partial pooling improves generalization relative to treating all question effects independently.
+
+---
+
+# 4. Demographics as predictors
+
+After evaluating the survey-only model improvements, investigate whether demographic information can improve prediction.
+
+The general structure becomes:
+
+```text
+survey responses
+        +
+completed demographics
         ↓
-latent factors
-        ↓
-demographic prediction
+target prediction
 ```
 
-Possible approaches:
+The demographic variables considered are:
 
-* Bayesian factor model
-* Latent trait representation
-* Factor scores as predictors
+* gender
+* region
+* education
+* age
 
-Compare the latent representation with the direct survey-response representation.
+### Important validation requirement
 
----
+Demographic completion must respect the train/test boundary.
 
-## 6. Structured survey effects
-
-Instead of treating every question as completely independent, investigate whether questions can share information based on their structure.
-
-Possible approaches:
-
-* Question groups
-* Shared coefficients
-* Group-level shrinkage
-* Correlated coefficient priors
-* Question-specific random effects
-
-This could provide a middle ground between a simple linear model and a fully interaction-based model.
-
----
-
-## 7. Joint demographic modeling
-
-Instead of fitting the demographic targets independently, investigate whether they can share latent structure.
+For example:
 
 ```text
-                 ┌── gender
-                 │
-survey responses ├── region
-                 │
-                 ├── education
-                 │
-                 └── age
+TRAIN
+  ↓
+fit demographic model
+  ↓
+predict missing demographics
+  ↓
+construct enriched training predictors
+  ↓
+fit final model
+
+
+TEST
+  ↓
+use only training-fitted demographic model
+  ↓
+predict missing demographics
+  ↓
+construct enriched test predictors
+  ↓
+evaluate
 ```
 
-Possible approaches:
+The test data must never be used to fit the demographic-imputation models.
 
-* Shared latent factors
-* Correlated demographic effects
-* Multivariate Bayesian models
+### Hard versus probabilistic demographic predictors
 
-This is a more advanced extension and should be considered after the individual models are well established.
+We should initially consider whether demographic information should be represented as:
 
----
+* hard predicted categories, or
+* posterior class probabilities.
 
-## 8. Uncertainty-aware modeling
+For Bayesian modeling, posterior probabilities may be particularly useful because they retain uncertainty rather than treating an uncertain prediction as a known fact.
 
-Investigate whether explicitly modeling uncertainty improves downstream predictions.
-
-Possible approaches:
-
-* Use posterior probabilities rather than hard classifications
-* Propagate posterior uncertainty
-* Multiple posterior imputations
-* Uncertainty-aware predictors
-* Calibration of predictive probabilities
-
-This is especially relevant if predicted demographics are eventually used as predictors.
+For age, posterior uncertainty can similarly be propagated rather than using only a single predicted age.
 
 ---
 
-## 9. Missingness modeling
+# 5. Continue improving if performance improves
 
-Investigate whether the probability that a demographic variable is missing depends on the observed survey responses.
+There is no predetermined stopping point after the first extension.
 
-Possible approaches:
+The Mendeley results provide a benchmark, but they are not a hard ceiling.
 
-* Model missingness indicators
-* Compare missingness patterns across respondents
-* Include missingness structure in the Bayesian model
-* Investigate whether missingness is plausibly related to observed variables
-
-This can help determine whether the current treatment of missing targets is adequate.
-
----
-
-## 10. Posterior predictive checking
-
-For each model extension, compare observed data with data generated from the posterior.
-
-Check whether the model reproduces:
-
-* Target distributions
-* Class frequencies
-* Age distribution
-* Response patterns
-* Important conditional relationships
-
-This should accompany predictive metrics rather than replacing them.
-
----
-
-## 11. Bayesian model comparison
-
-Where appropriate, compare models using Bayesian predictive criteria in addition to the existing validation metrics.
-
-Possible measures:
-
-* PSIS-LOO
-* WAIC
-* Expected log predictive density
-
-These can provide additional information about out-of-sample predictive performance.
-
----
-
-## Suggested progression
-
-A practical order would be:
+The decision process should be:
 
 ```text
-Current models
+Current model
       ↓
-Interactions
+Does extension improve validation?
+      │
+   ┌──┴──┐
+  YES    NO
+   │      │
+   ▼      ▼
+keep    retain simpler
+   │      │
+   └──┬───┘
       ↓
-Better nonlinear effects
-      ↓
-Hierarchical / structured effects
-      ↓
-Alternative priors / shrinkage
-      ↓
-Latent-factor representations
-      ↓
-Joint demographic models
-      ↓
-Uncertainty-aware extensions
+try next justified extension
 ```
 
-Each experiment should answer a specific question:
+If an extension produces a meaningful improvement, it becomes the new reference model and further improvements can be investigated.
 
-> **Does this additional model structure improve the model enough to justify its additional complexity?**
+If an extension does not improve predictive performance, the simpler model should be retained rather than adding complexity without evidence of benefit.
+
+---
+
+# 6. Model comparison criteria
+
+Every extension should be evaluated using the existing held-out test framework.
+
+For classification:
+
+* Accuracy
+* Macro F1
+* Weighted F1
+* Class-specific precision
+* Class-specific recall
+* Class-specific F1
+
+For age:
+
+* MAE
+* RMSE
+
+In addition, Bayesian-specific considerations should be examined where useful:
+
+* predictive uncertainty
+* posterior behavior
+* convergence diagnostics
+* whether additional complexity produces unstable estimates
+
+A small numerical improvement should not automatically justify a substantially more complicated model.
+
+---
+
+# 7. Current priority
+
+The improvement branch is intentionally limited to three main directions:
+
+```text
+1. Normalized interactions
+          ↓
+2. Hierarchical effects
+          ↓
+3. Demographics as predictors
+```
+
+Alternative priors, latent-factor models, joint demographic models, sophisticated nonlinear functions, and detailed missingness models are **not current priorities**.
+
+They can be reconsidered later if the main improvement path does not produce sufficient predictive performance.
+
+---
+
+## Overall principle
+
+The project should remain empirical and incremental.
+
+We do not assume that a more complex Bayesian model will perform better.
+
+Each extension must demonstrate its value on held-out data.
+
+The Mendeley results provide an external benchmark, while the Bayesian models are progressively improved until either:
+
+1. predictive performance approaches or exceeds the benchmark, or
+2. further complexity no longer produces meaningful improvements.
+
+In either case, the experimental results are informative.

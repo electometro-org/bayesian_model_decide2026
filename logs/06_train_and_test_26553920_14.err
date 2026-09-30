@@ -4,3 +4,10 @@ Sequential sampling (4 chains in 1 job)
 NUTS: [alpha, beta, gamma, sigma, nu_minus_two]
 /home/nicolasal97/bayesian_model_decide2026/venv/lib/python3.13/site-packages/pymc/step_methods/hmc/quadpotential.py:321: RuntimeWarning: overflow encountered in dot
   return 0.5 * np.dot(x, v_out)
+Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 2087 seconds.
+Sampling: [age]
+Sampling ... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 / 0:00:03
+/home/nicolasal97/bayesian_model_decide2026/venv/lib/python3.13/site-packages/arviz/__init__.py:110: MigrationWarning: arviz.InferenceData is no longer available on the arviz package; ArviZ now uses xarray's DataTree for the same role. See the migration guide: https://python.arviz.org/en/latest/user_guide/migration_guide.html#datatree
+  warnings.warn(
+Sampling: [age]
+Sampling ... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00 / 0:00:02
