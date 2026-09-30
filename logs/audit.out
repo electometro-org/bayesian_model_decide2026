@@ -1,0 +1,388 @@
+======================================================================
+BAYESIAN REGRESSION PROJECT — DATA AUDIT
+======================================================================
+
+Data file:
+  /home/leonnico/Documents/Activismo/Electometro/bayesian_model_decide2026/data/data.parquet
+
+======================================================================
+LOADING DATA
+======================================================================
+Data loaded successfully.
+
+======================================================================
+DATASET DIMENSIONS
+======================================================================
+Rows:    24,851
+Columns: 44
+
+======================================================================
+FIRST 5 OBSERVATIONS
+======================================================================
+  demographics_gender demographics_region demographics_education  demographics_age  responses_t1_1  responses_t1_2  responses_t2_1  responses_t2_2  responses_t3_1  responses_t3_2  responses_t4_1  responses_t4_2  responses_t5_1  responses_t5_2  responses_t6_1  responses_t6_2  responses_t7_1  responses_t7_2  responses_t8_1  responses_t8_2  responses_t9_1  responses_t9_2  responses_t10_1  responses_t10_2  responses_t11_1  responses_t11_2  responses_t12_1  responses_t12_2  responses_t13_1  responses_t13_2  responses_t14_1  responses_t14_2  responses_t15_1  responses_t15_2  responses_t16_1  responses_t16_2  responses_t17_1  responses_t17_2  responses_t18_1  responses_t18_2  responses_t19_1  responses_t19_2  responses_t20_1  responses_t20_2
+0              female            Arequipa          undergraduate               NaN             1.0             2.0             0.0             1.0             1.0             2.0             1.0             2.0             1.0             1.0             1.0             1.0             1.0             1.0             1.0             1.0             0.0             2.0              1.0              2.0              1.0              1.0              0.5              1.0              1.0              1.0              1.5              1.0              0.5              1.0              0.0              2.0              1.0              1.0              0.0              2.0              1.0              1.0              0.5              1.0
+1              female                Lima                    NaN              19.0             1.0             2.0             1.0             2.0             1.0             2.0             0.5             1.0             1.0             2.0             0.5             1.0             0.5             1.0             1.0             2.0             0.0             2.0              0.5              1.0              1.0              2.0              0.5              1.0              1.0              1.0              1.5              1.0              0.5              1.0              1.5              1.0              0.5              1.0              0.5              1.0              0.0              1.0              0.5              1.0
+2                male          Extranjero          undergraduate              22.0             1.0             1.0             1.0             1.0             1.0             1.0             1.0             2.0             1.0             2.0             1.0             2.0             0.0             1.0             0.0             1.0             0.0             1.0              0.0              2.0              0.5              1.0              1.0              2.0              1.0              1.0              0.0              1.0              1.0              1.0              0.0              1.0              1.0              2.0              0.0              1.0              1.0              1.0              0.0              1.0
+3                male  Lima Metropolitana          undergraduate              26.0             0.5             2.0             1.0             2.0             1.0             2.0             0.0             1.0             1.0             2.0             1.0             2.0             0.5             1.0             0.5             1.0             0.0             1.0              1.0              1.0              1.0              1.0              0.5              1.0              0.5              1.0              1.5              1.0              1.0              2.0              0.0              2.0              1.0              2.0              0.0              2.0              1.0              2.0              1.0              1.0
+4                male                Lima               graduate              45.0             1.0             2.0             0.0             2.0             1.0             2.0             0.0             2.0             0.0             2.0             0.0             1.0             0.5             1.0             0.0             1.0             0.0             2.0              1.0              1.0              0.0              1.0              0.0              1.0              1.0              2.0              1.0              2.0              0.0              1.0              1.0              1.0              0.0              1.0              0.5              2.0              0.0              1.0              0.5              1.0
+
+======================================================================
+VARIABLES
+======================================================================
+  1. demographics_gender
+  2. demographics_region
+  3. demographics_education
+  4. demographics_age
+  5. responses_t1_1
+  6. responses_t1_2
+  7. responses_t2_1
+  8. responses_t2_2
+  9. responses_t3_1
+ 10. responses_t3_2
+ 11. responses_t4_1
+ 12. responses_t4_2
+ 13. responses_t5_1
+ 14. responses_t5_2
+ 15. responses_t6_1
+ 16. responses_t6_2
+ 17. responses_t7_1
+ 18. responses_t7_2
+ 19. responses_t8_1
+ 20. responses_t8_2
+ 21. responses_t9_1
+ 22. responses_t9_2
+ 23. responses_t10_1
+ 24. responses_t10_2
+ 25. responses_t11_1
+ 26. responses_t11_2
+ 27. responses_t12_1
+ 28. responses_t12_2
+ 29. responses_t13_1
+ 30. responses_t13_2
+ 31. responses_t14_1
+ 32. responses_t14_2
+ 33. responses_t15_1
+ 34. responses_t15_2
+ 35. responses_t16_1
+ 36. responses_t16_2
+ 37. responses_t17_1
+ 38. responses_t17_2
+ 39. responses_t18_1
+ 40. responses_t18_2
+ 41. responses_t19_1
+ 42. responses_t19_2
+ 43. responses_t20_1
+ 44. responses_t20_2
+
+======================================================================
+DATA TYPES
+======================================================================
+              variable   dtype
+   demographics_gender     str
+   demographics_region     str
+demographics_education     str
+      demographics_age float64
+        responses_t1_1 float64
+        responses_t1_2 float64
+        responses_t2_1 float64
+        responses_t2_2 float64
+        responses_t3_1 float64
+        responses_t3_2 float64
+        responses_t4_1 float64
+        responses_t4_2 float64
+        responses_t5_1 float64
+        responses_t5_2 float64
+        responses_t6_1 float64
+        responses_t6_2 float64
+        responses_t7_1 float64
+        responses_t7_2 float64
+        responses_t8_1 float64
+        responses_t8_2 float64
+        responses_t9_1 float64
+        responses_t9_2 float64
+       responses_t10_1 float64
+       responses_t10_2 float64
+       responses_t11_1 float64
+       responses_t11_2 float64
+       responses_t12_1 float64
+       responses_t12_2 float64
+       responses_t13_1 float64
+       responses_t13_2 float64
+       responses_t14_1 float64
+       responses_t14_2 float64
+       responses_t15_1 float64
+       responses_t15_2 float64
+       responses_t16_1 float64
+       responses_t16_2 float64
+       responses_t17_1 float64
+       responses_t17_2 float64
+       responses_t18_1 float64
+       responses_t18_2 float64
+       responses_t19_1 float64
+       responses_t19_2 float64
+       responses_t20_1 float64
+       responses_t20_2 float64
+
+======================================================================
+MISSING VALUES
+======================================================================
+                        missing  missing_pct
+demographics_education     6513        26.21
+demographics_age           6494        26.13
+demographics_region        6059        24.38
+demographics_gender        5979        24.06
+responses_t20_2             318         1.28
+responses_t20_1             318         1.28
+responses_t19_2             246         0.99
+responses_t19_1             246         0.99
+responses_t16_1             203         0.82
+responses_t16_2             203         0.82
+responses_t18_2             159         0.64
+responses_t18_1             159         0.64
+responses_t17_2             146         0.59
+responses_t17_1             146         0.59
+responses_t11_1             125         0.50
+responses_t11_2             125         0.50
+responses_t14_2             119         0.48
+responses_t14_1             119         0.48
+responses_t4_2              111         0.45
+responses_t4_1              111         0.45
+responses_t2_1              106         0.43
+responses_t2_2              106         0.43
+responses_t15_2              91         0.37
+responses_t15_1              91         0.37
+responses_t6_1               88         0.35
+responses_t6_2               88         0.35
+responses_t9_1               88         0.35
+responses_t9_2               88         0.35
+responses_t12_1              86         0.35
+responses_t12_2              86         0.35
+responses_t8_1               75         0.30
+responses_t8_2               75         0.30
+responses_t13_2              74         0.30
+responses_t13_1              74         0.30
+responses_t10_1              69         0.28
+responses_t10_2              69         0.28
+responses_t1_2               66         0.27
+responses_t1_1               66         0.27
+responses_t5_1               46         0.19
+responses_t5_2               46         0.19
+responses_t3_1               44         0.18
+responses_t3_2               44         0.18
+responses_t7_2               41         0.16
+responses_t7_1               41         0.16
+
+======================================================================
+DUPLICATE ROWS
+======================================================================
+Duplicate rows: 297
+
+======================================================================
+NUMERICAL VARIABLES
+======================================================================
+Number of numerical variables: 41
+  - demographics_age
+  - responses_t1_1
+  - responses_t1_2
+  - responses_t2_1
+  - responses_t2_2
+  - responses_t3_1
+  - responses_t3_2
+  - responses_t4_1
+  - responses_t4_2
+  - responses_t5_1
+  - responses_t5_2
+  - responses_t6_1
+  - responses_t6_2
+  - responses_t7_1
+  - responses_t7_2
+  - responses_t8_1
+  - responses_t8_2
+  - responses_t9_1
+  - responses_t9_2
+  - responses_t10_1
+  - responses_t10_2
+  - responses_t11_1
+  - responses_t11_2
+  - responses_t12_1
+  - responses_t12_2
+  - responses_t13_1
+  - responses_t13_2
+  - responses_t14_1
+  - responses_t14_2
+  - responses_t15_1
+  - responses_t15_2
+  - responses_t16_1
+  - responses_t16_2
+  - responses_t17_1
+  - responses_t17_2
+  - responses_t18_1
+  - responses_t18_2
+  - responses_t19_1
+  - responses_t19_2
+  - responses_t20_1
+  - responses_t20_2
+
+======================================================================
+NON-NUMERICAL VARIABLES
+======================================================================
+Number of non-numerical variables: 3
+  - demographics_gender
+  - demographics_region
+  - demographics_education
+
+======================================================================
+UNIQUE VALUES
+======================================================================
+              variable  n_unique
+        responses_t2_2         2
+        responses_t1_2         2
+        responses_t4_2         2
+        responses_t3_2         2
+        responses_t5_2         2
+        responses_t6_2         2
+        responses_t8_2         2
+        responses_t7_2         2
+       responses_t11_2         2
+       responses_t12_2         2
+       responses_t14_2         2
+       responses_t13_2         2
+        responses_t9_2         2
+       responses_t10_2         2
+       responses_t16_2         2
+       responses_t15_2         2
+       responses_t17_2         2
+       responses_t18_2         2
+       responses_t19_2         2
+       responses_t20_2         2
+       responses_t12_1         3
+       responses_t11_1         3
+        responses_t3_1         3
+        responses_t4_1         3
+       responses_t15_1         3
+       responses_t17_1         3
+        responses_t7_1         3
+        responses_t8_1         3
+       responses_t13_1         3
+        responses_t6_1         3
+   demographics_gender         3
+        responses_t1_1         3
+       responses_t19_1         3
+       responses_t18_1         3
+       responses_t20_1         3
+       responses_t10_1         4
+        responses_t2_1         4
+        responses_t5_1         4
+        responses_t9_1         4
+demographics_education         4
+       responses_t14_1         4
+       responses_t16_1         4
+   demographics_region        28
+      demographics_age        91
+
+======================================================================
+NUMERICAL SUMMARY STATISTICS
+======================================================================
+                    count       mean        std  min   25%   50%   75%   max
+demographics_age  18357.0  31.350275  13.117041  0.0  22.0  27.0  37.0  99.0
+responses_t1_1    24785.0   0.764010   0.371511  0.0   0.5   1.0   1.0   1.0
+responses_t1_2    24785.0   1.726125   0.445955  1.0   1.0   2.0   2.0   2.0
+responses_t2_1    24745.0   0.668822   0.418586  0.0   0.5   1.0   1.0   1.5
+responses_t2_2    24745.0   1.293958   0.455582  1.0   1.0   1.0   2.0   2.0
+responses_t3_1    24807.0   0.970613   0.140987  0.0   1.0   1.0   1.0   1.0
+responses_t3_2    24807.0   1.652397   0.476219  1.0   1.0   2.0   2.0   2.0
+responses_t4_1    24740.0   0.843593   0.306961  0.0   1.0   1.0   1.0   1.0
+responses_t4_2    24740.0   1.273888   0.445961  1.0   1.0   1.0   2.0   2.0
+responses_t5_1    24805.0   0.839428   0.322979  0.0   1.0   1.0   1.0   1.5
+responses_t5_2    24805.0   1.264785   0.441228  1.0   1.0   1.0   2.0   2.0
+responses_t6_1    24763.0   0.559120   0.419973  0.0   0.0   0.5   1.0   1.0
+responses_t6_2    24763.0   1.179421   0.383712  1.0   1.0   1.0   1.0   2.0
+responses_t7_1    24810.0   0.551189   0.435880  0.0   0.0   0.5   1.0   1.0
+responses_t7_2    24810.0   1.189359   0.391802  1.0   1.0   1.0   1.0   2.0
+responses_t8_1    24776.0   0.660740   0.410709  0.0   0.5   1.0   1.0   1.0
+responses_t8_2    24776.0   1.191476   0.393470  1.0   1.0   1.0   1.0   2.0
+responses_t9_1    24763.0   0.311069   0.406008  0.0   0.0   0.0   0.5   1.5
+responses_t9_2    24763.0   1.589064   0.492014  1.0   1.0   2.0   2.0   2.0
+responses_t10_1   24782.0   0.727100   0.377710  0.0   0.5   1.0   1.0   1.5
+responses_t10_2   24782.0   1.215923   0.411469  1.0   1.0   1.0   1.0   2.0
+responses_t11_1   24726.0   0.684138   0.389582  0.0   0.5   1.0   1.0   1.0
+responses_t11_2   24726.0   1.219202   0.413714  1.0   1.0   1.0   1.0   2.0
+responses_t12_1   24765.0   0.794105   0.328426  0.0   0.5   1.0   1.0   1.0
+responses_t12_2   24765.0   1.259843   0.438557  1.0   1.0   1.0   2.0   2.0
+responses_t13_1   24777.0   0.897143   0.237975  0.0   1.0   1.0   1.0   1.0
+responses_t13_2   24777.0   1.354563   0.478390  1.0   1.0   1.0   2.0   2.0
+responses_t14_1   24732.0   0.447012   0.441509  0.0   0.0   0.5   1.0   1.5
+responses_t14_2   24732.0   1.284651   0.451257  1.0   1.0   1.0   2.0   2.0
+responses_t15_1   24760.0   0.622072   0.432195  0.0   0.0   1.0   1.0   1.0
+responses_t15_2   24760.0   1.159289   0.365953  1.0   1.0   1.0   1.0   2.0
+responses_t16_1   24648.0   0.483893   0.401220  0.0   0.0   0.5   1.0   1.5
+responses_t16_2   24648.0   1.177824   0.382372  1.0   1.0   1.0   1.0   2.0
+responses_t17_1   24705.0   0.677393   0.401776  0.0   0.5   1.0   1.0   1.0
+responses_t17_2   24705.0   1.332767   0.471213  1.0   1.0   1.0   2.0   2.0
+responses_t18_1   24692.0   0.522841   0.430341  0.0   0.0   0.5   1.0   1.0
+responses_t18_2   24692.0   1.331119   0.470625  1.0   1.0   1.0   2.0   2.0
+responses_t19_1   24605.0   0.439159   0.421052  0.0   0.0   0.5   1.0   1.0
+responses_t19_2   24605.0   1.138793   0.345737  1.0   1.0   1.0   1.0   2.0
+responses_t20_1   24533.0   0.737415   0.366874  0.0   0.5   1.0   1.0   1.0
+responses_t20_2   24533.0   1.150043   0.357121  1.0   1.0   1.0   1.0   2.0
+
+======================================================================
+PANDAS INFO
+======================================================================
+<class 'pandas.DataFrame'>
+RangeIndex: 24851 entries, 0 to 24850
+Data columns (total 44 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   demographics_gender     18872 non-null  str    
+ 1   demographics_region     18792 non-null  str    
+ 2   demographics_education  18338 non-null  str    
+ 3   demographics_age        18357 non-null  float64
+ 4   responses_t1_1          24785 non-null  float64
+ 5   responses_t1_2          24785 non-null  float64
+ 6   responses_t2_1          24745 non-null  float64
+ 7   responses_t2_2          24745 non-null  float64
+ 8   responses_t3_1          24807 non-null  float64
+ 9   responses_t3_2          24807 non-null  float64
+ 10  responses_t4_1          24740 non-null  float64
+ 11  responses_t4_2          24740 non-null  float64
+ 12  responses_t5_1          24805 non-null  float64
+ 13  responses_t5_2          24805 non-null  float64
+ 14  responses_t6_1          24763 non-null  float64
+ 15  responses_t6_2          24763 non-null  float64
+ 16  responses_t7_1          24810 non-null  float64
+ 17  responses_t7_2          24810 non-null  float64
+ 18  responses_t8_1          24776 non-null  float64
+ 19  responses_t8_2          24776 non-null  float64
+ 20  responses_t9_1          24763 non-null  float64
+ 21  responses_t9_2          24763 non-null  float64
+ 22  responses_t10_1         24782 non-null  float64
+ 23  responses_t10_2         24782 non-null  float64
+ 24  responses_t11_1         24726 non-null  float64
+ 25  responses_t11_2         24726 non-null  float64
+ 26  responses_t12_1         24765 non-null  float64
+ 27  responses_t12_2         24765 non-null  float64
+ 28  responses_t13_1         24777 non-null  float64
+ 29  responses_t13_2         24777 non-null  float64
+ 30  responses_t14_1         24732 non-null  float64
+ 31  responses_t14_2         24732 non-null  float64
+ 32  responses_t15_1         24760 non-null  float64
+ 33  responses_t15_2         24760 non-null  float64
+ 34  responses_t16_1         24648 non-null  float64
+ 35  responses_t16_2         24648 non-null  float64
+ 36  responses_t17_1         24705 non-null  float64
+ 37  responses_t17_2         24705 non-null  float64
+ 38  responses_t18_1         24692 non-null  float64
+ 39  responses_t18_2         24692 non-null  float64
+ 40  responses_t19_1         24605 non-null  float64
+ 41  responses_t19_2         24605 non-null  float64
+ 42  responses_t20_1         24533 non-null  float64
+ 43  responses_t20_2         24533 non-null  float64
+dtypes: float64(41), str(3)
+memory usage: 8.8 MB
+
+======================================================================
+AUDIT COMPLETE
+======================================================================
+
+No changes were made to the dataset.

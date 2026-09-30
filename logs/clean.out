@@ -1,0 +1,468 @@
+======================================================================
+BAYESIAN REGRESSION PROJECT — DATA AUDIT
+======================================================================
+
+Data file:
+  /home/leonnico/Documents/Activismo/Electometro/bayesian_model_decide2026/results/data_preprocessed.csv
+
+======================================================================
+LOADING DATA
+======================================================================
+Data loaded successfully.
+
+======================================================================
+DATASET DIMENSIONS
+======================================================================
+Rows:    24,851
+Columns: 64
+
+======================================================================
+FIRST 5 OBSERVATIONS
+======================================================================
+  demographics_gender demographics_region demographics_education  demographics_age  responses_t1_1  responses_t1_2  responses_t2_1  responses_t2_2  responses_t3_1  responses_t3_2  responses_t4_1  responses_t4_2  responses_t5_1  responses_t5_2  responses_t6_1  responses_t6_2  responses_t7_1  responses_t7_2  responses_t8_1  responses_t8_2  responses_t9_1  responses_t9_2  responses_t10_1  responses_t10_2  responses_t11_1  responses_t11_2  responses_t12_1  responses_t12_2  responses_t13_1  responses_t13_2  responses_t14_1  responses_t14_2  responses_t15_1  responses_t15_2  responses_t16_1  responses_t16_2  responses_t17_1  responses_t17_2  responses_t18_1  responses_t18_2  responses_t19_1  responses_t19_2  responses_t20_1  responses_t20_2  responses_t1_combined  responses_t2_combined  responses_t3_combined  responses_t4_combined  responses_t5_combined  responses_t6_combined  responses_t7_combined  responses_t8_combined  responses_t9_combined  responses_t10_combined  responses_t11_combined  responses_t12_combined  responses_t13_combined  responses_t14_combined  responses_t15_combined  responses_t16_combined  responses_t17_combined  responses_t18_combined  responses_t19_combined  responses_t20_combined
+0              female            Arequipa          undergraduate               NaN               1               1              -1               0               1               1               1               1               1               0               1               0               1               0               1               0              -1               1                1                1                1                0                0                0                1                0               -1                0                0                0               -1                1                1                0               -1                1                1                0                0                0                    1.0                   -0.5                    1.0                    1.0                    0.5                    0.5                    0.5                    0.5                   -1.0                     1.0                     0.5                     0.0                     0.5                    -0.5                     0.0                    -1.0                     0.5                    -1.0                     0.5                     0.0
+1              female  Lima Metropolitana                    NaN              19.0               1               1               1               1               1               1               0               0               1               1               0               0               0               0               1               1              -1               1                0                0                1                1                0                0                1                0               -1                0                0                0                0                0                0                0                0                0               -1                0                0                0                    1.0                    1.0                    1.0                    0.0                    1.0                    0.0                    0.0                    1.0                   -1.0                     0.0                     1.0                     0.0                     0.5                    -0.5                     0.0                     0.0                     0.0                     0.0                    -0.5                     0.0
+2                male          Extranjero          undergraduate              22.0               1               0               1               0               1               0               1               1               1               1               1               1              -1               0              -1               0              -1               0               -1                1                0                0                1                1                1                0               -1                0                1                0               -1                0                1                1               -1                0                1                0               -1                0                    0.5                    0.5                    0.5                    1.0                    1.0                    1.0                   -0.5                   -0.5                   -0.5                    -1.0                     0.0                     1.0                     0.5                    -0.5                     0.5                    -0.5                     1.0                    -0.5                     0.5                    -0.5
+3                male  Lima Metropolitana          undergraduate              26.0               0               1               1               1               1               1              -1               0               1               1               1               1               0               0               0               0              -1               0                1                0                1                0                0                0                0                0               -1                0                1                1               -1                1                1                1               -1                1                1                1                1                0                    0.0                    1.0                    1.0                   -0.5                    1.0                    1.0                    0.0                    0.0                   -0.5                     0.5                     0.5                     0.0                     0.0                    -0.5                     1.0                    -1.0                     1.0                    -1.0                     1.0                     0.5
+4                male  Lima Metropolitana               graduate              45.0               1               1              -1               1               1               1              -1               1              -1               1              -1               0               0               0              -1               0              -1               1                1                0               -1                0               -1                0                1                1                1                1               -1                0                1                0               -1                0                0                1               -1                0                0                0                    1.0                   -1.0                    1.0                   -1.0                   -1.0                   -0.5                    0.0                   -0.5                   -1.0                     0.5                    -0.5                    -0.5                     1.0                     1.0                    -0.5                     0.5                    -0.5                     0.0                    -0.5                     0.0
+
+======================================================================
+VARIABLES
+======================================================================
+  1. demographics_gender
+  2. demographics_region
+  3. demographics_education
+  4. demographics_age
+  5. responses_t1_1
+  6. responses_t1_2
+  7. responses_t2_1
+  8. responses_t2_2
+  9. responses_t3_1
+ 10. responses_t3_2
+ 11. responses_t4_1
+ 12. responses_t4_2
+ 13. responses_t5_1
+ 14. responses_t5_2
+ 15. responses_t6_1
+ 16. responses_t6_2
+ 17. responses_t7_1
+ 18. responses_t7_2
+ 19. responses_t8_1
+ 20. responses_t8_2
+ 21. responses_t9_1
+ 22. responses_t9_2
+ 23. responses_t10_1
+ 24. responses_t10_2
+ 25. responses_t11_1
+ 26. responses_t11_2
+ 27. responses_t12_1
+ 28. responses_t12_2
+ 29. responses_t13_1
+ 30. responses_t13_2
+ 31. responses_t14_1
+ 32. responses_t14_2
+ 33. responses_t15_1
+ 34. responses_t15_2
+ 35. responses_t16_1
+ 36. responses_t16_2
+ 37. responses_t17_1
+ 38. responses_t17_2
+ 39. responses_t18_1
+ 40. responses_t18_2
+ 41. responses_t19_1
+ 42. responses_t19_2
+ 43. responses_t20_1
+ 44. responses_t20_2
+ 45. responses_t1_combined
+ 46. responses_t2_combined
+ 47. responses_t3_combined
+ 48. responses_t4_combined
+ 49. responses_t5_combined
+ 50. responses_t6_combined
+ 51. responses_t7_combined
+ 52. responses_t8_combined
+ 53. responses_t9_combined
+ 54. responses_t10_combined
+ 55. responses_t11_combined
+ 56. responses_t12_combined
+ 57. responses_t13_combined
+ 58. responses_t14_combined
+ 59. responses_t15_combined
+ 60. responses_t16_combined
+ 61. responses_t17_combined
+ 62. responses_t18_combined
+ 63. responses_t19_combined
+ 64. responses_t20_combined
+
+======================================================================
+DATA TYPES
+======================================================================
+              variable   dtype
+   demographics_gender     str
+   demographics_region     str
+demographics_education     str
+      demographics_age float64
+        responses_t1_1   int64
+        responses_t1_2   int64
+        responses_t2_1   int64
+        responses_t2_2   int64
+        responses_t3_1   int64
+        responses_t3_2   int64
+        responses_t4_1   int64
+        responses_t4_2   int64
+        responses_t5_1   int64
+        responses_t5_2   int64
+        responses_t6_1   int64
+        responses_t6_2   int64
+        responses_t7_1   int64
+        responses_t7_2   int64
+        responses_t8_1   int64
+        responses_t8_2   int64
+        responses_t9_1   int64
+        responses_t9_2   int64
+       responses_t10_1   int64
+       responses_t10_2   int64
+       responses_t11_1   int64
+       responses_t11_2   int64
+       responses_t12_1   int64
+       responses_t12_2   int64
+       responses_t13_1   int64
+       responses_t13_2   int64
+       responses_t14_1   int64
+       responses_t14_2   int64
+       responses_t15_1   int64
+       responses_t15_2   int64
+       responses_t16_1   int64
+       responses_t16_2   int64
+       responses_t17_1   int64
+       responses_t17_2   int64
+       responses_t18_1   int64
+       responses_t18_2   int64
+       responses_t19_1   int64
+       responses_t19_2   int64
+       responses_t20_1   int64
+       responses_t20_2   int64
+ responses_t1_combined float64
+ responses_t2_combined float64
+ responses_t3_combined float64
+ responses_t4_combined float64
+ responses_t5_combined float64
+ responses_t6_combined float64
+ responses_t7_combined float64
+ responses_t8_combined float64
+ responses_t9_combined float64
+responses_t10_combined float64
+responses_t11_combined float64
+responses_t12_combined float64
+responses_t13_combined float64
+responses_t14_combined float64
+responses_t15_combined float64
+responses_t16_combined float64
+responses_t17_combined float64
+responses_t18_combined float64
+responses_t19_combined float64
+responses_t20_combined float64
+
+======================================================================
+MISSING VALUES
+======================================================================
+                        missing  missing_pct
+demographics_age           6742        27.13
+demographics_education     6513        26.21
+demographics_region        6059        24.38
+demographics_gender        5979        24.06
+
+======================================================================
+DUPLICATE ROWS
+======================================================================
+Duplicate rows: 304
+
+======================================================================
+NUMERICAL VARIABLES
+======================================================================
+Number of numerical variables: 61
+  - demographics_age
+  - responses_t1_1
+  - responses_t1_2
+  - responses_t2_1
+  - responses_t2_2
+  - responses_t3_1
+  - responses_t3_2
+  - responses_t4_1
+  - responses_t4_2
+  - responses_t5_1
+  - responses_t5_2
+  - responses_t6_1
+  - responses_t6_2
+  - responses_t7_1
+  - responses_t7_2
+  - responses_t8_1
+  - responses_t8_2
+  - responses_t9_1
+  - responses_t9_2
+  - responses_t10_1
+  - responses_t10_2
+  - responses_t11_1
+  - responses_t11_2
+  - responses_t12_1
+  - responses_t12_2
+  - responses_t13_1
+  - responses_t13_2
+  - responses_t14_1
+  - responses_t14_2
+  - responses_t15_1
+  - responses_t15_2
+  - responses_t16_1
+  - responses_t16_2
+  - responses_t17_1
+  - responses_t17_2
+  - responses_t18_1
+  - responses_t18_2
+  - responses_t19_1
+  - responses_t19_2
+  - responses_t20_1
+  - responses_t20_2
+  - responses_t1_combined
+  - responses_t2_combined
+  - responses_t3_combined
+  - responses_t4_combined
+  - responses_t5_combined
+  - responses_t6_combined
+  - responses_t7_combined
+  - responses_t8_combined
+  - responses_t9_combined
+  - responses_t10_combined
+  - responses_t11_combined
+  - responses_t12_combined
+  - responses_t13_combined
+  - responses_t14_combined
+  - responses_t15_combined
+  - responses_t16_combined
+  - responses_t17_combined
+  - responses_t18_combined
+  - responses_t19_combined
+  - responses_t20_combined
+
+======================================================================
+NON-NUMERICAL VARIABLES
+======================================================================
+Number of non-numerical variables: 3
+  - demographics_gender
+  - demographics_region
+  - demographics_education
+
+======================================================================
+UNIQUE VALUES
+======================================================================
+              variable  n_unique
+        responses_t2_2         2
+        responses_t1_2         2
+        responses_t4_2         2
+        responses_t3_2         2
+        responses_t5_2         2
+        responses_t6_2         2
+        responses_t8_2         2
+        responses_t7_2         2
+       responses_t11_2         2
+       responses_t12_2         2
+       responses_t14_2         2
+       responses_t13_2         2
+        responses_t9_2         2
+       responses_t10_2         2
+       responses_t16_2         2
+       responses_t15_2         2
+       responses_t17_2         2
+       responses_t18_2         2
+       responses_t19_2         2
+       responses_t20_2         2
+       responses_t10_1         3
+        responses_t9_1         3
+        responses_t3_1         3
+        responses_t4_1         3
+       responses_t12_1         3
+       responses_t11_1         3
+        responses_t7_1         3
+        responses_t6_1         3
+        responses_t2_1         3
+        responses_t5_1         3
+   demographics_gender         3
+        responses_t1_1         3
+       responses_t18_1         3
+       responses_t17_1         3
+       responses_t19_1         3
+       responses_t14_1         3
+        responses_t8_1         3
+       responses_t13_1         3
+       responses_t16_1         3
+       responses_t15_1         3
+       responses_t20_1         3
+demographics_education         4
+ responses_t5_combined         5
+ responses_t6_combined         5
+ responses_t1_combined         5
+ responses_t2_combined         5
+ responses_t3_combined         5
+ responses_t4_combined         5
+responses_t13_combined         5
+responses_t14_combined         5
+ responses_t7_combined         5
+ responses_t8_combined         5
+ responses_t9_combined         5
+responses_t10_combined         5
+responses_t11_combined         5
+responses_t12_combined         5
+responses_t17_combined         5
+responses_t18_combined         5
+responses_t15_combined         5
+responses_t16_combined         5
+responses_t19_combined         5
+responses_t20_combined         5
+   demographics_region        27
+      demographics_age        76
+
+======================================================================
+NUMERICAL SUMMARY STATISTICS
+======================================================================
+                          count       mean        std   min   25%   50%   75%   max
+demographics_age        18109.0  31.574411  13.058206  18.0  22.0  27.0  37.0  99.0
+responses_t1_1          24851.0   0.529274   0.742432  -1.0   0.0   1.0   1.0   1.0
+responses_t1_2          24851.0   0.726852   0.445585   0.0   0.0   1.0   1.0   1.0
+responses_t2_1          24851.0   0.339705   0.835438  -1.0   0.0   1.0   1.0   1.0
+responses_t2_2          24851.0   0.292705   0.455013   0.0   0.0   0.0   1.0   1.0
+responses_t3_1          24851.0   0.941330   0.281735  -1.0   1.0   1.0   1.0   1.0
+responses_t3_2          24851.0   0.653012   0.476021   0.0   0.0   1.0   1.0   1.0
+responses_t4_1          24851.0   0.688584   0.612905  -1.0   1.0   1.0   1.0   1.0
+responses_t4_2          24851.0   0.272665   0.445339   0.0   0.0   0.0   1.0   1.0
+responses_t5_1          24851.0   0.679007   0.644944  -1.0   1.0   1.0   1.0   1.0
+responses_t5_2          24851.0   0.264295   0.440966   0.0   0.0   0.0   1.0   1.0
+responses_t6_1          24851.0   0.121363   0.840091  -1.0  -1.0   0.0   1.0   1.0
+responses_t6_2          24851.0   0.178786   0.383180   0.0   0.0   0.0   0.0   1.0
+responses_t7_1          24851.0   0.103859   0.871801  -1.0  -1.0   0.0   1.0   1.0
+responses_t7_2          24851.0   0.189047   0.391554   0.0   0.0   0.0   0.0   1.0
+responses_t8_1          24851.0   0.323528   0.821022  -1.0   0.0   1.0   1.0   1.0
+responses_t8_2          24851.0   0.190898   0.393017   0.0   0.0   0.0   0.0   1.0
+responses_t9_1          24851.0  -0.380669   0.810764  -1.0  -1.0  -1.0   0.0   1.0
+responses_t9_2          24851.0   0.590519   0.491748   0.0   0.0   1.0   1.0   1.0
+responses_t10_1         24851.0   0.455394   0.754472  -1.0   0.0   1.0   1.0   1.0
+responses_t10_2         24851.0   0.215323   0.411055   0.0   0.0   0.0   0.0   1.0
+responses_t11_1         24851.0   0.371454   0.778486  -1.0   0.0   1.0   1.0   1.0
+responses_t11_2         24851.0   0.218100   0.412964   0.0   0.0   0.0   0.0   1.0
+responses_t12_1         24851.0   0.589634   0.656161  -1.0   0.0   1.0   1.0   1.0
+responses_t12_2         24851.0   0.258943   0.438063   0.0   0.0   0.0   1.0   1.0
+responses_t13_1         24851.0   0.794898   0.475373  -1.0   1.0   1.0   1.0   1.0
+responses_t13_2         24851.0   0.353507   0.478068   0.0   0.0   0.0   1.0   1.0
+responses_t14_1         24851.0  -0.115931   0.879112  -1.0  -1.0   0.0   1.0   1.0
+responses_t14_2         24851.0   0.283288   0.450604   0.0   0.0   0.0   1.0   1.0
+responses_t15_1         24851.0   0.246912   0.864012  -1.0  -1.0   1.0   1.0   1.0
+responses_t15_2         24851.0   0.158706   0.365409   0.0   0.0   0.0   0.0   1.0
+responses_t16_1         24851.0  -0.037343   0.792148  -1.0  -1.0   0.0   1.0   1.0
+responses_t16_2         24851.0   0.176371   0.381143   0.0   0.0   0.0   0.0   1.0
+responses_t17_1         24851.0   0.358577   0.802705  -1.0   0.0   1.0   1.0   1.0
+responses_t17_2         24851.0   0.330812   0.470515   0.0   0.0   0.0   1.0   1.0
+responses_t18_1         24851.0   0.051789   0.861293  -1.0  -1.0   0.0   1.0   1.0
+responses_t18_2         24851.0   0.329001   0.469860   0.0   0.0   0.0   1.0   1.0
+responses_t19_1         24851.0  -0.130377   0.842426  -1.0  -1.0   0.0   1.0   1.0
+responses_t19_2         24851.0   0.137419   0.344296   0.0   0.0   0.0   0.0   1.0
+responses_t20_1         24851.0   0.481550   0.731424  -1.0   0.0   1.0   1.0   1.0
+responses_t20_2         24851.0   0.148123   0.355229   0.0   0.0   0.0   0.0   1.0
+responses_t1_combined   24851.0   0.468874   0.667548  -1.0   0.0   1.0   1.0   1.0
+responses_t2_combined   24851.0   0.273631   0.574257  -1.0   0.0   0.5   0.5   1.0
+responses_t3_combined   24851.0   0.784938   0.322144  -1.0   0.5   1.0   1.0   1.0
+responses_t4_combined   24851.0   0.448392   0.449460  -1.0   0.5   0.5   0.5   1.0
+responses_t5_combined   24851.0   0.444751   0.460934  -1.0   0.5   0.5   0.5   1.0
+responses_t6_combined   24851.0   0.077240   0.527722  -1.0  -0.5   0.0   0.5   1.0
+responses_t7_combined   24851.0   0.117722   0.557169  -1.0  -0.5   0.0   0.5   1.0
+responses_t8_combined   24851.0   0.243431   0.520838  -1.0   0.0   0.5   0.5   1.0
+responses_t9_combined   24851.0  -0.335661   0.674122  -1.0  -1.0  -0.5   0.0   1.0
+responses_t10_combined  24851.0   0.300089   0.497513  -1.0   0.0   0.5   0.5   1.0
+responses_t11_combined  24851.0   0.261056   0.505867  -1.0   0.0   0.5   0.5   1.0
+responses_t12_combined  24851.0   0.415235   0.456352  -1.0   0.0   0.5   0.5   1.0
+responses_t13_combined  24851.0   0.563861   0.389869  -1.0   0.5   0.5   1.0   1.0
+responses_t14_combined  24851.0  -0.054746   0.608087  -1.0  -0.5   0.0   0.5   1.0
+responses_t15_combined  24851.0   0.182105   0.532888  -1.0  -0.5   0.5   0.5   1.0
+responses_t16_combined  24851.0  -0.039737   0.502729  -1.0  -0.5   0.0   0.5   1.0
+responses_t17_combined  24851.0   0.283268   0.569061  -1.0   0.0   0.5   0.5   1.0
+responses_t18_combined  24851.0   0.034325   0.613504  -1.0  -0.5   0.0   0.5   1.0
+responses_t19_combined  24851.0  -0.024788   0.521846  -1.0  -0.5   0.0   0.5   1.0
+responses_t20_combined  24851.0   0.295763   0.453053  -1.0   0.0   0.5   0.5   1.0
+
+======================================================================
+PANDAS INFO
+======================================================================
+<class 'pandas.DataFrame'>
+RangeIndex: 24851 entries, 0 to 24850
+Data columns (total 64 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   demographics_gender     18872 non-null  str    
+ 1   demographics_region     18792 non-null  str    
+ 2   demographics_education  18338 non-null  str    
+ 3   demographics_age        18109 non-null  float64
+ 4   responses_t1_1          24851 non-null  int64  
+ 5   responses_t1_2          24851 non-null  int64  
+ 6   responses_t2_1          24851 non-null  int64  
+ 7   responses_t2_2          24851 non-null  int64  
+ 8   responses_t3_1          24851 non-null  int64  
+ 9   responses_t3_2          24851 non-null  int64  
+ 10  responses_t4_1          24851 non-null  int64  
+ 11  responses_t4_2          24851 non-null  int64  
+ 12  responses_t5_1          24851 non-null  int64  
+ 13  responses_t5_2          24851 non-null  int64  
+ 14  responses_t6_1          24851 non-null  int64  
+ 15  responses_t6_2          24851 non-null  int64  
+ 16  responses_t7_1          24851 non-null  int64  
+ 17  responses_t7_2          24851 non-null  int64  
+ 18  responses_t8_1          24851 non-null  int64  
+ 19  responses_t8_2          24851 non-null  int64  
+ 20  responses_t9_1          24851 non-null  int64  
+ 21  responses_t9_2          24851 non-null  int64  
+ 22  responses_t10_1         24851 non-null  int64  
+ 23  responses_t10_2         24851 non-null  int64  
+ 24  responses_t11_1         24851 non-null  int64  
+ 25  responses_t11_2         24851 non-null  int64  
+ 26  responses_t12_1         24851 non-null  int64  
+ 27  responses_t12_2         24851 non-null  int64  
+ 28  responses_t13_1         24851 non-null  int64  
+ 29  responses_t13_2         24851 non-null  int64  
+ 30  responses_t14_1         24851 non-null  int64  
+ 31  responses_t14_2         24851 non-null  int64  
+ 32  responses_t15_1         24851 non-null  int64  
+ 33  responses_t15_2         24851 non-null  int64  
+ 34  responses_t16_1         24851 non-null  int64  
+ 35  responses_t16_2         24851 non-null  int64  
+ 36  responses_t17_1         24851 non-null  int64  
+ 37  responses_t17_2         24851 non-null  int64  
+ 38  responses_t18_1         24851 non-null  int64  
+ 39  responses_t18_2         24851 non-null  int64  
+ 40  responses_t19_1         24851 non-null  int64  
+ 41  responses_t19_2         24851 non-null  int64  
+ 42  responses_t20_1         24851 non-null  int64  
+ 43  responses_t20_2         24851 non-null  int64  
+ 44  responses_t1_combined   24851 non-null  float64
+ 45  responses_t2_combined   24851 non-null  float64
+ 46  responses_t3_combined   24851 non-null  float64
+ 47  responses_t4_combined   24851 non-null  float64
+ 48  responses_t5_combined   24851 non-null  float64
+ 49  responses_t6_combined   24851 non-null  float64
+ 50  responses_t7_combined   24851 non-null  float64
+ 51  responses_t8_combined   24851 non-null  float64
+ 52  responses_t9_combined   24851 non-null  float64
+ 53  responses_t10_combined  24851 non-null  float64
+ 54  responses_t11_combined  24851 non-null  float64
+ 55  responses_t12_combined  24851 non-null  float64
+ 56  responses_t13_combined  24851 non-null  float64
+ 57  responses_t14_combined  24851 non-null  float64
+ 58  responses_t15_combined  24851 non-null  float64
+ 59  responses_t16_combined  24851 non-null  float64
+ 60  responses_t17_combined  24851 non-null  float64
+ 61  responses_t18_combined  24851 non-null  float64
+ 62  responses_t19_combined  24851 non-null  float64
+ 63  responses_t20_combined  24851 non-null  float64
+dtypes: float64(21), int64(40), str(3)
+memory usage: 12.7 MB
+
+======================================================================
+AUDIT COMPLETE
+======================================================================
+
+No changes were made to the dataset.
