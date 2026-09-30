@@ -1,0 +1,38 @@
+======================================================================
+EXPLORATORY DATA ANALYSIS
+======================================================================
+
+Input file: data/preprocessed/data_preprocessed.parquet
+Output directory: results/eda
+
+Dataset shape: 24,851 rows x 64 columns
+
+[1/10] Analyzing demographic targets...
+[2/10] Analyzing position responses...
+[3/10] Analyzing importance responses...
+[4/10] Analyzing combined responses...
+[5/10] Analyzing missingness...
+[6/10] Creating numerical summaries...
+[7/10] Analyzing combined responses by gender...
+[8/10] Analyzing combined responses by education...
+[9/10] Analyzing combined responses by region...
+[10/10] Analyzing combined responses by age...
+
+======================================================================
+EDA COMPLETE
+======================================================================
+
+Results saved to:
+/home/leonnico/Documents/Activismo/Electometro/bayesian_model_decide2026/results/eda
+
+Generated structure:
+
+    results/
+    └── eda/
+        ├── targets/
+        ├── responses_position/
+        ├── responses_importance/
+        ├── responses_combined/
+        ├── missingness/
+        └── numerical_summary/
+            

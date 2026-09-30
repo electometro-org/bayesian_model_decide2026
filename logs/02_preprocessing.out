@@ -1,0 +1,14 @@
+
+Reading: data/raw.parquet
+Original dimensions: (24851, 44)
+
+Preprocessing complete.
+--------------------------------------------------
+Rows: 24851
+Columns: 64
+Invalid demographics_ages set to missing: 248
+Combined thesis variables created: 20
+
+Output files:
+  Parquet: data/preprocessed/data_preprocessed.parquet
+  CSV:     data/preprocessed/data_preprocessed.csv

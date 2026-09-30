@@ -1,0 +1,49 @@
+======================================================================
+Creating validation splits
+======================================================================
+
+Input data: data/preprocessed/data_preprocessed.parquet
+Random seed: 42
+Test size: 20%
+
+Dataset dimensions: 24,851 rows × 64 columns
+
+----------------------------------------------------------------------
+Target: gender
+Column: demographics_gender
+Valid observations: 18,872
+Training observations: 15,097
+Test observations: 3,775
+Saved training data: data/validation_splits/gender_train.csv
+Saved test data:     data/validation_splits/gender_test.csv
+
+----------------------------------------------------------------------
+Target: region
+Column: demographics_region
+Valid observations: 18,792
+Training observations: 15,033
+Test observations: 3,759
+Saved training data: data/validation_splits/region_train.csv
+Saved test data:     data/validation_splits/region_test.csv
+
+----------------------------------------------------------------------
+Target: education
+Column: demographics_education
+Valid observations: 18,338
+Training observations: 14,670
+Test observations: 3,668
+Saved training data: data/validation_splits/education_train.csv
+Saved test data:     data/validation_splits/education_test.csv
+
+----------------------------------------------------------------------
+Target: age
+Column: demographics_age
+Valid observations: 18,109
+Training observations: 14,487
+Test observations: 3,622
+Saved training data: data/validation_splits/age_train.csv
+Saved test data:     data/validation_splits/age_test.csv
+
+======================================================================
+Validation splits created successfully.
+======================================================================

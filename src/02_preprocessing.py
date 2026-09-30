@@ -249,9 +249,9 @@ def main():
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("data/processed"),
-        help="Directory for processed files "
-             "(default: data/processed)"
+        default=Path("data/preprocessed"),
+        help="Directory for preprocessed files "
+             "(default: data/preprocessed)"
     )
 
     parser.add_argument(

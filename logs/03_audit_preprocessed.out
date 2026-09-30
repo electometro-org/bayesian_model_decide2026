@@ -3,7 +3,7 @@ BAYESIAN REGRESSION PROJECT — DATA AUDIT
 ======================================================================
 
 Data file:
-  /home/leonnico/Documents/Activismo/Electometro/bayesian_model_decide2026/results/data_preprocessed.csv
+  /home/leonnico/Documents/Activismo/Electometro/bayesian_model_decide2026/data/preprocessed/data_preprocessed.parquet
 
 ======================================================================
 LOADING DATA
@@ -97,71 +97,71 @@ VARIABLES
 ======================================================================
 DATA TYPES
 ======================================================================
-              variable   dtype
-   demographics_gender     str
-   demographics_region     str
-demographics_education     str
-      demographics_age float64
-        responses_t1_1   int64
-        responses_t1_2   int64
-        responses_t2_1   int64
-        responses_t2_2   int64
-        responses_t3_1   int64
-        responses_t3_2   int64
-        responses_t4_1   int64
-        responses_t4_2   int64
-        responses_t5_1   int64
-        responses_t5_2   int64
-        responses_t6_1   int64
-        responses_t6_2   int64
-        responses_t7_1   int64
-        responses_t7_2   int64
-        responses_t8_1   int64
-        responses_t8_2   int64
-        responses_t9_1   int64
-        responses_t9_2   int64
-       responses_t10_1   int64
-       responses_t10_2   int64
-       responses_t11_1   int64
-       responses_t11_2   int64
-       responses_t12_1   int64
-       responses_t12_2   int64
-       responses_t13_1   int64
-       responses_t13_2   int64
-       responses_t14_1   int64
-       responses_t14_2   int64
-       responses_t15_1   int64
-       responses_t15_2   int64
-       responses_t16_1   int64
-       responses_t16_2   int64
-       responses_t17_1   int64
-       responses_t17_2   int64
-       responses_t18_1   int64
-       responses_t18_2   int64
-       responses_t19_1   int64
-       responses_t19_2   int64
-       responses_t20_1   int64
-       responses_t20_2   int64
- responses_t1_combined float64
- responses_t2_combined float64
- responses_t3_combined float64
- responses_t4_combined float64
- responses_t5_combined float64
- responses_t6_combined float64
- responses_t7_combined float64
- responses_t8_combined float64
- responses_t9_combined float64
-responses_t10_combined float64
-responses_t11_combined float64
-responses_t12_combined float64
-responses_t13_combined float64
-responses_t14_combined float64
-responses_t15_combined float64
-responses_t16_combined float64
-responses_t17_combined float64
-responses_t18_combined float64
-responses_t19_combined float64
-responses_t20_combined float64
+              variable    dtype
+   demographics_gender category
+   demographics_region   string
+demographics_education category
+      demographics_age  float64
+        responses_t1_1    int64
+        responses_t1_2    int64
+        responses_t2_1    int64
+        responses_t2_2    int64
+        responses_t3_1    int64
+        responses_t3_2    int64
+        responses_t4_1    int64
+        responses_t4_2    int64
+        responses_t5_1    int64
+        responses_t5_2    int64
+        responses_t6_1    int64
+        responses_t6_2    int64
+        responses_t7_1    int64
+        responses_t7_2    int64
+        responses_t8_1    int64
+        responses_t8_2    int64
+        responses_t9_1    int64
+        responses_t9_2    int64
+       responses_t10_1    int64
+       responses_t10_2    int64
+       responses_t11_1    int64
+       responses_t11_2    int64
+       responses_t12_1    int64
+       responses_t12_2    int64
+       responses_t13_1    int64
+       responses_t13_2    int64
+       responses_t14_1    int64
+       responses_t14_2    int64
+       responses_t15_1    int64
+       responses_t15_2    int64
+       responses_t16_1    int64
+       responses_t16_2    int64
+       responses_t17_1    int64
+       responses_t17_2    int64
+       responses_t18_1    int64
+       responses_t18_2    int64
+       responses_t19_1    int64
+       responses_t19_2    int64
+       responses_t20_1    int64
+       responses_t20_2    int64
+ responses_t1_combined  float64
+ responses_t2_combined  float64
+ responses_t3_combined  float64
+ responses_t4_combined  float64
+ responses_t5_combined  float64
+ responses_t6_combined  float64
+ responses_t7_combined  float64
+ responses_t8_combined  float64
+ responses_t9_combined  float64
+responses_t10_combined  float64
+responses_t11_combined  float64
+responses_t12_combined  float64
+responses_t13_combined  float64
+responses_t14_combined  float64
+responses_t15_combined  float64
+responses_t16_combined  float64
+responses_t17_combined  float64
+responses_t18_combined  float64
+responses_t19_combined  float64
+responses_t20_combined  float64
 
 ======================================================================
 MISSING VALUES
@@ -392,74 +392,74 @@ PANDAS INFO
 <class 'pandas.DataFrame'>
 RangeIndex: 24851 entries, 0 to 24850
 Data columns (total 64 columns):
- #   Column                  Non-Null Count  Dtype  
----  ------                  --------------  -----  
- 0   demographics_gender     18872 non-null  str    
- 1   demographics_region     18792 non-null  str    
- 2   demographics_education  18338 non-null  str    
- 3   demographics_age        18109 non-null  float64
- 4   responses_t1_1          24851 non-null  int64  
- 5   responses_t1_2          24851 non-null  int64  
- 6   responses_t2_1          24851 non-null  int64  
- 7   responses_t2_2          24851 non-null  int64  
- 8   responses_t3_1          24851 non-null  int64  
- 9   responses_t3_2          24851 non-null  int64  
- 10  responses_t4_1          24851 non-null  int64  
- 11  responses_t4_2          24851 non-null  int64  
- 12  responses_t5_1          24851 non-null  int64  
- 13  responses_t5_2          24851 non-null  int64  
- 14  responses_t6_1          24851 non-null  int64  
- 15  responses_t6_2          24851 non-null  int64  
- 16  responses_t7_1          24851 non-null  int64  
- 17  responses_t7_2          24851 non-null  int64  
- 18  responses_t8_1          24851 non-null  int64  
- 19  responses_t8_2          24851 non-null  int64  
- 20  responses_t9_1          24851 non-null  int64  
- 21  responses_t9_2          24851 non-null  int64  
- 22  responses_t10_1         24851 non-null  int64  
- 23  responses_t10_2         24851 non-null  int64  
- 24  responses_t11_1         24851 non-null  int64  
- 25  responses_t11_2         24851 non-null  int64  
- 26  responses_t12_1         24851 non-null  int64  
- 27  responses_t12_2         24851 non-null  int64  
- 28  responses_t13_1         24851 non-null  int64  
- 29  responses_t13_2         24851 non-null  int64  
- 30  responses_t14_1         24851 non-null  int64  
- 31  responses_t14_2         24851 non-null  int64  
- 32  responses_t15_1         24851 non-null  int64  
- 33  responses_t15_2         24851 non-null  int64  
- 34  responses_t16_1         24851 non-null  int64  
- 35  responses_t16_2         24851 non-null  int64  
- 36  responses_t17_1         24851 non-null  int64  
- 37  responses_t17_2         24851 non-null  int64  
- 38  responses_t18_1         24851 non-null  int64  
- 39  responses_t18_2         24851 non-null  int64  
- 40  responses_t19_1         24851 non-null  int64  
- 41  responses_t19_2         24851 non-null  int64  
- 42  responses_t20_1         24851 non-null  int64  
- 43  responses_t20_2         24851 non-null  int64  
- 44  responses_t1_combined   24851 non-null  float64
- 45  responses_t2_combined   24851 non-null  float64
- 46  responses_t3_combined   24851 non-null  float64
- 47  responses_t4_combined   24851 non-null  float64
- 48  responses_t5_combined   24851 non-null  float64
- 49  responses_t6_combined   24851 non-null  float64
- 50  responses_t7_combined   24851 non-null  float64
- 51  responses_t8_combined   24851 non-null  float64
- 52  responses_t9_combined   24851 non-null  float64
- 53  responses_t10_combined  24851 non-null  float64
- 54  responses_t11_combined  24851 non-null  float64
- 55  responses_t12_combined  24851 non-null  float64
- 56  responses_t13_combined  24851 non-null  float64
- 57  responses_t14_combined  24851 non-null  float64
- 58  responses_t15_combined  24851 non-null  float64
- 59  responses_t16_combined  24851 non-null  float64
- 60  responses_t17_combined  24851 non-null  float64
- 61  responses_t18_combined  24851 non-null  float64
- 62  responses_t19_combined  24851 non-null  float64
- 63  responses_t20_combined  24851 non-null  float64
-dtypes: float64(21), int64(40), str(3)
-memory usage: 12.7 MB
+ #   Column                  Non-Null Count  Dtype   
+---  ------                  --------------  -----   
+ 0   demographics_gender     18872 non-null  category
+ 1   demographics_region     18792 non-null  string  
+ 2   demographics_education  18338 non-null  category
+ 3   demographics_age        18109 non-null  float64 
+ 4   responses_t1_1          24851 non-null  int64   
+ 5   responses_t1_2          24851 non-null  int64   
+ 6   responses_t2_1          24851 non-null  int64   
+ 7   responses_t2_2          24851 non-null  int64   
+ 8   responses_t3_1          24851 non-null  int64   
+ 9   responses_t3_2          24851 non-null  int64   
+ 10  responses_t4_1          24851 non-null  int64   
+ 11  responses_t4_2          24851 non-null  int64   
+ 12  responses_t5_1          24851 non-null  int64   
+ 13  responses_t5_2          24851 non-null  int64   
+ 14  responses_t6_1          24851 non-null  int64   
+ 15  responses_t6_2          24851 non-null  int64   
+ 16  responses_t7_1          24851 non-null  int64   
+ 17  responses_t7_2          24851 non-null  int64   
+ 18  responses_t8_1          24851 non-null  int64   
+ 19  responses_t8_2          24851 non-null  int64   
+ 20  responses_t9_1          24851 non-null  int64   
+ 21  responses_t9_2          24851 non-null  int64   
+ 22  responses_t10_1         24851 non-null  int64   
+ 23  responses_t10_2         24851 non-null  int64   
+ 24  responses_t11_1         24851 non-null  int64   
+ 25  responses_t11_2         24851 non-null  int64   
+ 26  responses_t12_1         24851 non-null  int64   
+ 27  responses_t12_2         24851 non-null  int64   
+ 28  responses_t13_1         24851 non-null  int64   
+ 29  responses_t13_2         24851 non-null  int64   
+ 30  responses_t14_1         24851 non-null  int64   
+ 31  responses_t14_2         24851 non-null  int64   
+ 32  responses_t15_1         24851 non-null  int64   
+ 33  responses_t15_2         24851 non-null  int64   
+ 34  responses_t16_1         24851 non-null  int64   
+ 35  responses_t16_2         24851 non-null  int64   
+ 36  responses_t17_1         24851 non-null  int64   
+ 37  responses_t17_2         24851 non-null  int64   
+ 38  responses_t18_1         24851 non-null  int64   
+ 39  responses_t18_2         24851 non-null  int64   
+ 40  responses_t19_1         24851 non-null  int64   
+ 41  responses_t19_2         24851 non-null  int64   
+ 42  responses_t20_1         24851 non-null  int64   
+ 43  responses_t20_2         24851 non-null  int64   
+ 44  responses_t1_combined   24851 non-null  float64 
+ 45  responses_t2_combined   24851 non-null  float64 
+ 46  responses_t3_combined   24851 non-null  float64 
+ 47  responses_t4_combined   24851 non-null  float64 
+ 48  responses_t5_combined   24851 non-null  float64 
+ 49  responses_t6_combined   24851 non-null  float64 
+ 50  responses_t7_combined   24851 non-null  float64 
+ 51  responses_t8_combined   24851 non-null  float64 
+ 52  responses_t9_combined   24851 non-null  float64 
+ 53  responses_t10_combined  24851 non-null  float64 
+ 54  responses_t11_combined  24851 non-null  float64 
+ 55  responses_t12_combined  24851 non-null  float64 
+ 56  responses_t13_combined  24851 non-null  float64 
+ 57  responses_t14_combined  24851 non-null  float64 
+ 58  responses_t15_combined  24851 non-null  float64 
+ 59  responses_t16_combined  24851 non-null  float64 
+ 60  responses_t17_combined  24851 non-null  float64 
+ 61  responses_t18_combined  24851 non-null  float64 
+ 62  responses_t19_combined  24851 non-null  float64 
+ 63  responses_t20_combined  24851 non-null  float64 
+dtypes: category(2), float64(21), int64(40), string(1)
+memory usage: 12.1 MB
 
 ======================================================================
 AUDIT COMPLETE
