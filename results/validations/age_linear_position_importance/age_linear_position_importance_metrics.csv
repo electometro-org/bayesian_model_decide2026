@@ -1,0 +1,2 @@
+model,feature_set,test_observations,metric,value,RMSE
+age_linear,position_importance,3622,MAE,8.725497392376878,12.439398657950505

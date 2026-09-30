@@ -1,0 +1,2 @@
+model,feature_set,test_observations,metric,value,weighted_f1,accuracy
+region,combined,3759,macro_f1,0.029890569719195553,0.5459740376402463,0.6765097100292631

@@ -60,3 +60,143 @@ Building region model...
 Running prior predictive sampling...
 
 Running posterior sampling...
+                                                                                
+                                  Step    Grad                                  
+  Progress        Draw    Dive…   size    evals   Speed          Elap…   Rema…  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ━━━━━━ ━━━━━━   1000    0       0.093   63      4.98 s/draw    2:46…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.070   63      4.98 s/draw    2:45…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.101   63      5.41 s/draw    3:00…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.080   63      5.40 s/draw    3:00…   0:00…  
+                                                                                
+
+Running posterior predictive sampling...
+
+Saved InferenceData to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/region_all/region_all.nc
+
+Saving diagnostics...
+
+Region model completed successfully.
+
+Posterior successfully created:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/region_all/region_all.nc
+
+======================================================================
+STEP 2: Running held-out test
+======================================================================
+======================================================================
+Bayesian model validation
+======================================================================
+
+Test data: data/validation_splits/region_test.csv
+Model: region
+Features: all
+Posterior: /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/region_all/region_all.nc
+
+Test observations: 3,759
+Predictors: 60
+Classes: 27
+Class order: ['Lima Metropolitana', 'Arequipa', 'Callao', 'La Libertad', 'Extranjero', 'Cusco', 'Piura', 'Lambayeque', 'Junín', 'Ica', 'Áncash', 'Cajamarca', 'Lima Provincias', 'Tacna', 'Puno', 'Huánuco', 'San Martín', 'Amazonas', 'Ayacucho', 'Apurímac', 'Loreto', 'Moquegua', 'Ucayali', 'Pasco', 'Madre de Dios', 'Tumbes', 'Huancavelica']
+
+Observed test class counts:
+  0: Lima Metropolitana = 2,543
+  1: Arequipa = 180
+  2: Callao = 149
+  3: La Libertad = 113
+  4: Extranjero = 110
+  5: Cusco = 75
+  6: Piura = 74
+  7: Lambayeque = 68
+  8: Junín = 63
+  9: Ica = 61
+  10: Áncash = 49
+  11: Cajamarca = 36
+  12: Lima Provincias = 31
+  13: Tacna = 31
+  14: Puno = 29
+  15: Huánuco = 29
+  16: San Martín = 21
+  17: Amazonas = 17
+  18: Ayacucho = 15
+  19: Apurímac = 13
+  20: Loreto = 12
+  21: Moquegua = 11
+  22: Ucayali = 10
+  23: Pasco = 6
+  24: Madre de Dios = 5
+  25: Tumbes = 5
+  26: Huancavelica = 3
+
+Loading posterior...
+Posterior groups: ('/', '/posterior', '/sample_stats', '/observed_data', '/constant_data', '/posterior_predictive')
+Posterior variables: ['beta', 'alpha', 'beta_sigma']
+
+Building prediction model...
+Likelihood variable: region
+Model observed variables: ['region']
+Model free variables: ['beta_sigma', 'beta', 'alpha']
+
+Generating posterior predictive samples for 'region'...
+
+Posterior predictive object:
+  Type: dict
+  Variables: ['region']
+  'region' raw shape: (4, 1000, 3759)
+  'region' dtype: int64
+
+Formatting prediction array:
+  Input shape: (4, 1000, 3759)
+  Final shape: (3759, 4000)
+  Observations: 3759
+  Posterior samples: 4000
+
+Prediction class counts:
+  Class 0: observed=2,543, predicted=3,759
+  Class 1: observed=180, predicted=0
+  Class 2: observed=149, predicted=0
+  Class 3: observed=113, predicted=0
+  Class 4: observed=110, predicted=0
+  Class 5: observed=75, predicted=0
+  Class 6: observed=74, predicted=0
+  Class 7: observed=68, predicted=0
+  Class 8: observed=63, predicted=0
+  Class 9: observed=61, predicted=0
+  Class 10: observed=49, predicted=0
+  Class 11: observed=36, predicted=0
+  Class 12: observed=31, predicted=0
+  Class 13: observed=31, predicted=0
+  Class 14: observed=29, predicted=0
+  Class 15: observed=29, predicted=0
+  Class 16: observed=21, predicted=0
+  Class 17: observed=17, predicted=0
+  Class 18: observed=15, predicted=0
+  Class 19: observed=13, predicted=0
+  Class 20: observed=12, predicted=0
+  Class 21: observed=11, predicted=0
+  Class 22: observed=10, predicted=0
+  Class 23: observed=6, predicted=0
+  Class 24: observed=5, predicted=0
+  Class 25: observed=5, predicted=0
+  Class 26: observed=3, predicted=0
+
+Classification results:
+  Macro F1:    0.0299
+  Weighted F1: 0.5460
+  Accuracy:    0.6765
+
+Saved metrics to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/validations/region_all/region_all_metrics.csv
+
+Validation completed successfully.
+
+======================================================================
+Model + validation completed successfully
+======================================================================
+Model:        region
+Features:     all
+Train file:   data/validation_splits/region_train.csv
+Test file:    data/validation_splits/region_test.csv
+Posterior:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/region_all/region_all.nc
+Validation:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/region_all
+======================================================================

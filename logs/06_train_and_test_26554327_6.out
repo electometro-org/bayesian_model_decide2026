@@ -16,3 +16,122 @@ Output dir:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations
 ======================================================================
 STEP 1: Fitting Bayesian model
 ======================================================================
+======================================================================
+Bayesian model: Education | Ordinal logistic regression
+======================================================================
+
+Loading data...
+Dataset dimensions: 14,670 rows × 65 columns
+
+Feature representation: position_importance
+Predictors: 40
+Observations used: 14,670
+
+Education distribution:
+  primary         61 (0.42%)
+  secondary       2,356 (16.06%)
+  undergraduate   8,362 (57.00%)
+  graduate        3,891 (26.52%)
+
+Building education model...
+
+Running education prior predictive sampling...
+Saved prior predictive to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_position_importance/education_prior_predictive.nc
+
+Running posterior sampling...
+                                                                                
+                                  Step    Grad                                  
+  Progress        Draw    Dive…   size    evals   Speed          Elap…   Rema…  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ━━━━━━ ━━━━━━   1000    0       0.090   63      4.73 draws/s   0:07…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.094   63      4.89 draws/s   0:06…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.084   63      4.84 draws/s   0:06…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.075   31      5.11 draws/s   0:06…   0:00…  
+                                                                                
+
+Running posterior predictive sampling...
+
+Saved InferenceData to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_position_importance/education_position_importance.nc
+
+Saving diagnostics...
+No posterior predictive group found.
+
+Education model completed successfully.
+
+Posterior successfully created:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_position_importance/education_position_importance.nc
+
+======================================================================
+STEP 2: Running held-out test
+======================================================================
+======================================================================
+Bayesian model validation
+======================================================================
+
+Test data: data/validation_splits/education_test.csv
+Model: education
+Features: position_importance
+Posterior: /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_position_importance/education_position_importance.nc
+
+Test observations: 3,668
+Predictors: 40
+Classes: 4
+Class order: ['primary', 'secondary', 'undergraduate', 'graduate']
+
+Observed test class counts:
+  0: primary = 15
+  1: secondary = 589
+  2: undergraduate = 2,091
+  3: graduate = 973
+
+Loading posterior...
+Posterior groups: ('/', '/posterior', '/sample_stats', '/observed_data', '/constant_data', '/posterior_predictive')
+Posterior variables: ['beta', 'cutpoints', 'education_probs']
+
+Building prediction model...
+Likelihood variable: education
+Model observed variables: ['education']
+Model free variables: ['beta', 'cutpoints']
+
+Generating posterior predictive samples for 'education'...
+
+Posterior predictive object:
+  Type: dict
+  Variables: ['education']
+  'education' raw shape: (4, 1000, 3668)
+  'education' dtype: int64
+
+Formatting prediction array:
+  Input shape: (4, 1000, 3668)
+  Final shape: (3668, 4000)
+  Observations: 3668
+  Posterior samples: 4000
+
+Prediction class counts:
+  Class 0: observed=15, predicted=0
+  Class 1: observed=589, predicted=0
+  Class 2: observed=2,091, predicted=3,630
+  Class 3: observed=973, predicted=38
+
+Classification results:
+  Macro F1:    0.1912
+  Weighted F1: 0.4240
+  Accuracy:    0.5712
+
+Saved metrics to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/validations/education_position_importance/education_position_importance_metrics.csv
+
+Validation completed successfully.
+
+======================================================================
+Model + validation completed successfully
+======================================================================
+Model:        education
+Features:     position_importance
+Train file:   data/validation_splits/education_train.csv
+Test file:    data/validation_splits/education_test.csv
+Posterior:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_position_importance/education_position_importance.nc
+Validation:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/education_position_importance
+======================================================================

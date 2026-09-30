@@ -16,3 +16,105 @@ Output dir:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations
 ======================================================================
 STEP 1: Fitting Bayesian model
 ======================================================================
+======================================================================
+Bayesian model: Age | Linear Student-t regression
+======================================================================
+
+Loading data...
+Dataset dimensions: 14,487 rows × 65 columns
+
+Feature representation: position_importance
+Predictors: 40
+Observations used: 14,487
+
+Age distribution:
+  Mean:   31.60
+  Median: 27.00
+  SD:     13.08
+  Min:    18
+  Max:    99
+
+Building age linear model...
+
+Running prior predictive sampling...
+
+Running posterior sampling...
+                                                                                
+                                  Step    Grad                                  
+  Progress        Draw    Dive…   size    evals   Speed          Elap…   Rema…  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ━━━━━━ ━━━━━━   1000    0       0.155   31      28.70 draws…   0:01…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.131   31      29.21 draws…   0:01…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.137   31      28.58 draws…   0:01…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.162   31      28.48 draws…   0:01…   0:00…  
+                                                                                
+
+Running posterior predictive sampling...
+
+Saved InferenceData to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_linear_position_importance/age_linear_position_importance.nc
+
+Saving diagnostics...
+
+Age linear model completed successfully.
+
+Posterior successfully created:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_linear_position_importance/age_linear_position_importance.nc
+
+======================================================================
+STEP 2: Running held-out test
+======================================================================
+======================================================================
+Bayesian model validation
+======================================================================
+
+Test data: data/validation_splits/age_test.csv
+Model: age_linear
+Features: position_importance
+Posterior: /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_linear_position_importance/age_linear_position_importance.nc
+
+Test observations: 3,622
+Predictors: 40
+
+Loading posterior...
+Posterior groups: ('/', '/posterior', '/sample_stats', '/observed_data', '/constant_data', '/posterior_predictive')
+Posterior variables: ['alpha', 'beta', 'sigma', 'nu_minus_two', 'nu', 'mu']
+
+Building prediction model...
+Likelihood variable: age
+Model observed variables: ['age']
+Model free variables: ['alpha', 'beta', 'sigma', 'nu_minus_two']
+
+Generating posterior predictive samples for 'age'...
+
+Posterior predictive object:
+  Type: dict
+  Variables: ['age']
+  'age' raw shape: (4, 1000, 3622)
+  'age' dtype: float64
+
+Formatting prediction array:
+  Input shape: (4, 1000, 3622)
+  Final shape: (3622, 4000)
+  Observations: 3622
+  Posterior samples: 4000
+
+Age prediction results:
+  MAE:  8.7255
+  RMSE: 12.4394
+
+Saved metrics to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/validations/age_linear_position_importance/age_linear_position_importance_metrics.csv
+
+Validation completed successfully.
+
+======================================================================
+Model + validation completed successfully
+======================================================================
+Model:        age_linear
+Features:     position_importance
+Train file:   data/validation_splits/age_train.csv
+Test file:    data/validation_splits/age_test.csv
+Posterior:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_linear_position_importance/age_linear_position_importance.nc
+Validation:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/age_linear_position_importance
+======================================================================

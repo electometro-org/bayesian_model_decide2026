@@ -1,0 +1,2 @@
+model,feature_set,test_observations,metric,value,weighted_f1,accuracy
+education,combined,3668,macro_f1,0.1828348315033489,0.4150546287921882,0.5689749182115594

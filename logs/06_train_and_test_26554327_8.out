@@ -16,3 +16,122 @@ Output dir:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations
 ======================================================================
 STEP 1: Fitting Bayesian model
 ======================================================================
+======================================================================
+Bayesian model: Education | Ordinal logistic regression
+======================================================================
+
+Loading data...
+Dataset dimensions: 14,670 rows × 65 columns
+
+Feature representation: all
+Predictors: 60
+Observations used: 14,670
+
+Education distribution:
+  primary         61 (0.42%)
+  secondary       2,356 (16.06%)
+  undergraduate   8,362 (57.00%)
+  graduate        3,891 (26.52%)
+
+Building education model...
+
+Running education prior predictive sampling...
+Saved prior predictive to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_all/education_prior_predictive.nc
+
+Running posterior sampling...
+                                                                                
+                                  Step    Grad                                  
+  Progress        Draw    Dive…   size    evals   Speed          Elap…   Rema…  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ━━━━━━ ━━━━━━   1000    0       0.044   127     3.17 draws/s   0:10…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.048   127     3.17 draws/s   0:10…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.048   127     3.14 draws/s   0:10…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.049   127     3.13 draws/s   0:10…   0:00…  
+                                                                                
+
+Running posterior predictive sampling...
+
+Saved InferenceData to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_all/education_all.nc
+
+Saving diagnostics...
+No posterior predictive group found.
+
+Education model completed successfully.
+
+Posterior successfully created:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_all/education_all.nc
+
+======================================================================
+STEP 2: Running held-out test
+======================================================================
+======================================================================
+Bayesian model validation
+======================================================================
+
+Test data: data/validation_splits/education_test.csv
+Model: education
+Features: all
+Posterior: /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_all/education_all.nc
+
+Test observations: 3,668
+Predictors: 60
+Classes: 4
+Class order: ['primary', 'secondary', 'undergraduate', 'graduate']
+
+Observed test class counts:
+  0: primary = 15
+  1: secondary = 589
+  2: undergraduate = 2,091
+  3: graduate = 973
+
+Loading posterior...
+Posterior groups: ('/', '/posterior', '/sample_stats', '/observed_data', '/constant_data', '/posterior_predictive')
+Posterior variables: ['beta', 'cutpoints', 'education_probs']
+
+Building prediction model...
+Likelihood variable: education
+Model observed variables: ['education']
+Model free variables: ['beta', 'cutpoints']
+
+Generating posterior predictive samples for 'education'...
+
+Posterior predictive object:
+  Type: dict
+  Variables: ['education']
+  'education' raw shape: (4, 1000, 3668)
+  'education' dtype: int64
+
+Formatting prediction array:
+  Input shape: (4, 1000, 3668)
+  Final shape: (3668, 4000)
+  Observations: 3668
+  Posterior samples: 4000
+
+Prediction class counts:
+  Class 0: observed=15, predicted=0
+  Class 1: observed=589, predicted=1
+  Class 2: observed=2,091, predicted=3,632
+  Class 3: observed=973, predicted=35
+
+Classification results:
+  Macro F1:    0.1897
+  Weighted F1: 0.4220
+  Accuracy:    0.5703
+
+Saved metrics to:
+  /scratch/nicolasal97/bayesian_model_decide2026/results/validations/education_all/education_all_metrics.csv
+
+Validation completed successfully.
+
+======================================================================
+Model + validation completed successfully
+======================================================================
+Model:        education
+Features:     all
+Train file:   data/validation_splits/education_train.csv
+Test file:    data/validation_splits/education_test.csv
+Posterior:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_all/education_all.nc
+Validation:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/education_all
+======================================================================
