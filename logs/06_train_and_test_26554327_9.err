@@ -1,0 +1,4 @@
+Sampling: [age, alpha, beta, nu_minus_two, sigma]
+Initializing NUTS using jitter+adapt_diag...
+Sequential sampling (4 chains in 1 job)
+NUTS: [alpha, beta, sigma, nu_minus_two]

@@ -1,2 +1,0 @@
-model,feature_set,test_observations,metric,value,weighted_f1,accuracy
-education,position_importance,3668,macro_f1,0.19124061127285233,0.4240193676229103,0.5711559432933478

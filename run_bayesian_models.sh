@@ -11,7 +11,7 @@
 #SBATCH --ntasks=1
 #SBATCH --array=0-14
 #SBATCH --cpus-per-task=2
-#SBATCH --mem-per-cpu=15GB
+#SBATCH --mem-per-cpu=5GB
 #SBATCH --time=12:00:00
 
 set -e
@@ -142,11 +142,11 @@ FEATURE="${FEATURES[$SLURM_ARRAY_TASK_ID]}"
 TRAIN_FILE="data/validation_splits/${TRAIN_FILES[$SLURM_ARRAY_TASK_ID]}"
 TEST_FILE="data/validation_splits/${TEST_FILES[$SLURM_ARRAY_TASK_ID]}"
 
-MODEL_DIR="results/bayesian_models/${MODEL}_${FEATURE}"
+MODEL_DIR="/scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/${MODEL}_${FEATURE}"
 
 MODEL_FILE="${MODEL_DIR}/${MODEL}_${FEATURE}.nc"
 
-OUTPUT_DIR="results/validation/${MODEL}_${FEATURE}"
+OUTPUT_DIR="/scratch/nicolasal97/bayesian_model_decide2026/results/validations/${MODEL}_${FEATURE}"
 
 
 # ----------------------------------------------------------------------

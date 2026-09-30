@@ -1,0 +1,18 @@
+======================================================================
+Bayesian model + held-out validation
+======================================================================
+Job ID:       26554342
+Array ID:     13
+Node:         c004
+Model:        age_nonlinear
+Features:     combined
+Train file:   data/validation_splits/age_train.csv
+Test file:    data/validation_splits/age_test.csv
+Model dir:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_nonlinear_combined
+Model file:   /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_nonlinear_combined/age_nonlinear_combined.nc
+Output dir:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/age_nonlinear_combined
+======================================================================
+
+======================================================================
+STEP 1: Fitting Bayesian model
+======================================================================

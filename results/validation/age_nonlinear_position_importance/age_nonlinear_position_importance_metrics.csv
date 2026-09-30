@@ -1,2 +1,0 @@
-model,feature_set,test_observations,metric,value,RMSE
-age_nonlinear,position_importance,3622,MAE,8.49299651199887,11.996464367261783

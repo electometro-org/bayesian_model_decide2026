@@ -1,0 +1,18 @@
+======================================================================
+Bayesian model + held-out validation
+======================================================================
+Job ID:       26554336
+Array ID:     7
+Node:         c003
+Model:        education
+Features:     combined
+Train file:   data/validation_splits/education_train.csv
+Test file:    data/validation_splits/education_test.csv
+Model dir:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_combined
+Model file:   /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/education_combined/education_combined.nc
+Output dir:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/education_combined
+======================================================================
+
+======================================================================
+STEP 1: Fitting Bayesian model
+======================================================================

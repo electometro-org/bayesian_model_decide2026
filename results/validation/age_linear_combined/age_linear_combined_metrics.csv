@@ -1,2 +1,0 @@
-model,feature_set,test_observations,metric,value,RMSE
-age_linear,combined,3622,MAE,8.875878197102557,12.690784595309905

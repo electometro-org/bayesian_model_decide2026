@@ -1,0 +1,18 @@
+======================================================================
+Bayesian model + held-out validation
+======================================================================
+Job ID:       26554341
+Array ID:     12
+Node:         c004
+Model:        age_nonlinear
+Features:     position_importance
+Train file:   data/validation_splits/age_train.csv
+Test file:    data/validation_splits/age_test.csv
+Model dir:    /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_nonlinear_position_importance
+Model file:   /scratch/nicolasal97/bayesian_model_decide2026/results/bayesian_models/age_nonlinear_position_importance/age_nonlinear_position_importance.nc
+Output dir:   /scratch/nicolasal97/bayesian_model_decide2026/results/validations/age_nonlinear_position_importance
+======================================================================
+
+======================================================================
+STEP 1: Fitting Bayesian model
+======================================================================
