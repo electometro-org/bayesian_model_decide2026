@@ -1,22 +1,33 @@
 #!/bin/bash
 
-#SBATCH --job-name=bayes_all
-#SBATCH --output=logs/bayes_all_%A_%a.out
-#SBATCH --error=logs/bayes_all_%A_%a.err
+#SBATCH --job-name=06_train_and_test
+#SBATCH --output=logs/06_train_and_test_%A_%a.out
+#SBATCH --error=logs/06_train_and_test_%A_%a.err
+#SBATCH --partition=scavenger
+#SBATCH --account=agfritz
+#SBATCH --qos=standard
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
 #SBATCH --array=0-14
 #SBATCH --cpus-per-task=2
-#SBATCH --mem=20G
-#SBATCH --time=05:00:00
+#SBATCH --mem-per-cpu=15GB
+#SBATCH --time=12:00:00
 
 set -e
 
-PROJECT_DIR="$HOME/Documents/Activismo/Electometro/bayesian_model_decide2026"
+PROJECT_DIR="$HOME/bayesian_model_decide2026"
 
 cd "$PROJECT_DIR"
+
+module purge
+module add virtualenv/20.32.0-GCCcore-14.3.0
+module add Python/3.13.5-GCCcore-14.3.0
 
 source venv/bin/activate
 
 mkdir -p logs
+
 
 # ----------------------------------------------------------------------
 # Model / feature configuration
@@ -66,7 +77,39 @@ FEATURES=(
     "all"
 )
 
-TARGET_FILES=(
+
+# ----------------------------------------------------------------------
+# Target-specific TRAINING files
+# ----------------------------------------------------------------------
+
+TRAIN_FILES=(
+    "gender_train.csv"
+    "gender_train.csv"
+    "gender_train.csv"
+
+    "region_train.csv"
+    "region_train.csv"
+    "region_train.csv"
+
+    "education_train.csv"
+    "education_train.csv"
+    "education_train.csv"
+
+    "age_train.csv"
+    "age_train.csv"
+    "age_train.csv"
+
+    "age_train.csv"
+    "age_train.csv"
+    "age_train.csv"
+)
+
+
+# ----------------------------------------------------------------------
+# Target-specific TEST files
+# ----------------------------------------------------------------------
+
+TEST_FILES=(
     "gender_test.csv"
     "gender_test.csv"
     "gender_test.csv"
@@ -88,9 +131,16 @@ TARGET_FILES=(
     "age_test.csv"
 )
 
+
+# ----------------------------------------------------------------------
+# Select configuration for this array task
+# ----------------------------------------------------------------------
+
 MODEL="${MODELS[$SLURM_ARRAY_TASK_ID]}"
 FEATURE="${FEATURES[$SLURM_ARRAY_TASK_ID]}"
-TARGET_FILE="${TARGET_FILES[$SLURM_ARRAY_TASK_ID]}"
+
+TRAIN_FILE="data/validation_splits/${TRAIN_FILES[$SLURM_ARRAY_TASK_ID]}"
+TEST_FILE="data/validation_splits/${TEST_FILES[$SLURM_ARRAY_TASK_ID]}"
 
 MODEL_DIR="results/bayesian_models/${MODEL}_${FEATURE}"
 
@@ -98,19 +148,26 @@ MODEL_FILE="${MODEL_DIR}/${MODEL}_${FEATURE}.nc"
 
 OUTPUT_DIR="results/validation/${MODEL}_${FEATURE}"
 
-TEST_FILE="data/validation_splits/${TARGET_FILE}"
 
+# ----------------------------------------------------------------------
+# Information
+# ----------------------------------------------------------------------
 
 echo "======================================================================"
-echo "Bayesian model + validation"
+echo "Bayesian model + held-out validation"
 echo "======================================================================"
 
 echo "Job ID:       $SLURM_JOB_ID"
 echo "Array ID:     $SLURM_ARRAY_TASK_ID"
 echo "Node:         $SLURM_JOB_NODELIST"
+
 echo "Model:        $MODEL"
 echo "Features:     $FEATURE"
+
+echo "Train file:   $TRAIN_FILE"
 echo "Test file:    $TEST_FILE"
+
+echo "Model dir:    $MODEL_DIR"
 echo "Model file:   $MODEL_FILE"
 echo "Output dir:   $OUTPUT_DIR"
 
@@ -118,8 +175,14 @@ echo "======================================================================"
 
 
 # ----------------------------------------------------------------------
-# Check test data
+# Check input files
 # ----------------------------------------------------------------------
+
+if [ ! -f "$TRAIN_FILE" ]; then
+    echo "ERROR: Training file not found:"
+    echo "  $TRAIN_FILE"
+    exit 1
+fi
 
 if [ ! -f "$TEST_FILE" ]; then
     echo "ERROR: Test file not found:"
@@ -138,9 +201,9 @@ echo "STEP 1: Fitting Bayesian model"
 echo "======================================================================"
 
 python3 src/04_bayesian_models.py \
-    --model "$MODEL" \
+    "$TRAIN_FILE" \
+    --target "$MODEL" \
     --features "$FEATURE" \
-    --input data/clean.csv \
     --output-dir "$MODEL_DIR" \
     --random-seed 42
 
@@ -156,8 +219,13 @@ if [ ! -f "$MODEL_FILE" ]; then
 fi
 
 
+echo ""
+echo "Posterior successfully created:"
+echo "  $MODEL_FILE"
+
+
 # ----------------------------------------------------------------------
-# 2. Test Bayesian model on held-out data
+# 2. Run held-out test
 # ----------------------------------------------------------------------
 
 echo ""
@@ -185,6 +253,8 @@ echo "======================================================================"
 
 echo "Model:        $MODEL"
 echo "Features:     $FEATURE"
+echo "Train file:   $TRAIN_FILE"
+echo "Test file:    $TEST_FILE"
 echo "Posterior:    $MODEL_FILE"
 echo "Validation:   $OUTPUT_DIR"
 
