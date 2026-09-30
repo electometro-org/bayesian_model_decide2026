@@ -1,0 +1,6 @@
+Sampling: [age, alpha, beta, gamma, nu_minus_two, sigma]
+Initializing NUTS using jitter+adapt_diag...
+Sequential sampling (4 chains in 1 job)
+NUTS: [alpha, beta, gamma, sigma, nu_minus_two]
+/home/nicolasal97/bayesian_model_decide2026/venv/lib/python3.13/site-packages/pymc/step_methods/hmc/quadpotential.py:321: RuntimeWarning: overflow encountered in dot
+  return 0.5 * np.dot(x, v_out)

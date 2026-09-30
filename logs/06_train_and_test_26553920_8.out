@@ -1,0 +1,18 @@
+======================================================================
+Bayesian model + held-out validation
+======================================================================
+Job ID:       26553929
+Array ID:     8
+Node:         c004
+Model:        education
+Features:     all
+Train file:   data/validation_splits/education_train.csv
+Test file:    data/validation_splits/education_test.csv
+Model dir:    results/bayesian_models/education_all
+Model file:   results/bayesian_models/education_all/education_all.nc
+Output dir:   results/validation/education_all
+======================================================================
+
+======================================================================
+STEP 1: Fitting Bayesian model
+======================================================================

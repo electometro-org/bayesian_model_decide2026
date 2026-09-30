@@ -1,0 +1,2 @@
+model,feature_set,test_observations,metric,value,weighted_f1,accuracy
+gender,combined,3775,macro_f1,0.43439172830294215,0.6486039690305608,0.6569536423841059

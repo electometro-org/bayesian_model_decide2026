@@ -1,0 +1,4 @@
+Sampling: [alpha, beta, gender]
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [alpha, beta]

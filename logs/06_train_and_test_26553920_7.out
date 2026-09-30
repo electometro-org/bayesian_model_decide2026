@@ -1,0 +1,137 @@
+======================================================================
+Bayesian model + held-out validation
+======================================================================
+Job ID:       26553928
+Array ID:     7
+Node:         c003
+Model:        education
+Features:     combined
+Train file:   data/validation_splits/education_train.csv
+Test file:    data/validation_splits/education_test.csv
+Model dir:    results/bayesian_models/education_combined
+Model file:   results/bayesian_models/education_combined/education_combined.nc
+Output dir:   results/validation/education_combined
+======================================================================
+
+======================================================================
+STEP 1: Fitting Bayesian model
+======================================================================
+======================================================================
+Bayesian model: Education | Ordinal logistic regression
+======================================================================
+
+Loading data...
+Dataset dimensions: 14,670 rows × 65 columns
+
+Feature representation: combined
+Predictors: 20
+Observations used: 14,670
+
+Education distribution:
+  primary         61 (0.42%)
+  secondary       2,356 (16.06%)
+  undergraduate   8,362 (57.00%)
+  graduate        3,891 (26.52%)
+
+Building education model...
+
+Running education prior predictive sampling...
+Saved prior predictive to:
+  results/bayesian_models/education_combined/education_prior_predictive.nc
+
+Running posterior sampling...
+                                                                                
+                                  Step    Grad                                  
+  Progress        Draw    Dive…   size    evals   Speed          Elap…   Rema…  
+ ────────────────────────────────────────────────────────────────────────────── 
+  ━━━━━━ ━━━━━━   1000    0       0.107   31      7.92 draws/s   0:04…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.089   63      7.48 draws/s   0:04…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.109   31      7.51 draws/s   0:04…   0:00…  
+  ━━━━━━ ━━━━━━   1000    0       0.093   31      7.81 draws/s   0:04…   0:00…  
+                                                                                
+
+Running posterior predictive sampling...
+
+Saved InferenceData to:
+  results/bayesian_models/education_combined/education_combined.nc
+
+Saving diagnostics...
+No posterior predictive group found.
+
+Education model completed successfully.
+
+Posterior successfully created:
+  results/bayesian_models/education_combined/education_combined.nc
+
+======================================================================
+STEP 2: Running held-out test
+======================================================================
+======================================================================
+Bayesian model validation
+======================================================================
+
+Test data: data/validation_splits/education_test.csv
+Model: education
+Features: combined
+Posterior: results/bayesian_models/education_combined/education_combined.nc
+
+Test observations: 3,668
+Predictors: 20
+Classes: 4
+Class order: ['primary', 'secondary', 'undergraduate', 'graduate']
+
+Observed test class counts:
+  0: primary = 15
+  1: secondary = 589
+  2: undergraduate = 2,091
+  3: graduate = 973
+
+Loading posterior...
+Posterior groups: ('/', '/posterior', '/sample_stats', '/observed_data', '/constant_data', '/posterior_predictive')
+Posterior variables: ['beta', 'cutpoints', 'education_probs']
+
+Building prediction model...
+Likelihood variable: education
+Model observed variables: ['education']
+Model free variables: ['beta', 'cutpoints']
+
+Generating posterior predictive samples for 'education'...
+
+Posterior predictive object:
+  Type: dict
+  Variables: ['education']
+  'education' raw shape: (4, 1000, 3668)
+  'education' dtype: int64
+
+Formatting prediction array:
+  Input shape: (4, 1000, 3668)
+  Final shape: (3668, 4000)
+  Observations: 3668
+  Posterior samples: 4000
+
+Prediction class counts:
+  Class 0: observed=15, predicted=0
+  Class 1: observed=589, predicted=0
+  Class 2: observed=2,091, predicted=3,656
+  Class 3: observed=973, predicted=12
+
+Classification results:
+  Macro F1:    0.1828
+  Weighted F1: 0.4151
+  Accuracy:    0.5690
+
+Saved metrics to:
+  results/validation/education_combined/education_combined_metrics.csv
+
+Validation completed successfully.
+
+======================================================================
+Model + validation completed successfully
+======================================================================
+Model:        education
+Features:     combined
+Train file:   data/validation_splits/education_train.csv
+Test file:    data/validation_splits/education_test.csv
+Posterior:    results/bayesian_models/education_combined/education_combined.nc
+Validation:   results/validation/education_combined
+======================================================================
