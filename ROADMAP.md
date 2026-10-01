@@ -1,275 +1,151 @@
 # Bayesian Model Improvement Roadmap
 
-The current Bayesian models serve as the reference models for the next stage of the project.
-
-The reported results from the Mendeley experiment are treated as an external benchmark. The objective is not simply to reproduce or exceed those values, but to investigate whether increasingly appropriate Bayesian model structures can improve predictive performance while retaining uncertainty estimates and a principled probabilistic framework.
-
-The improvement process will be incremental:
-
-> **Model → validate → compare → improve → validate again**
-
-The same held-out test observations should be retained whenever models for the same target are compared.
+The current Bayesian models are the reference models for the next stage of the project. The results of the first imputation round published on Mendeley (XGBoost / Random Forest) are an **external benchmark**. 
 
 ---
 
-## 1. Current Bayesian models — reference
+## 1. Where we stand
 
-The existing models are the starting point:
+Held-out results of the current reference models (80/20 split, seed 42, per-target split) against the Mendeley benchmark.
 
-* Gender: multinomial logistic regression
-* Region: hierarchical multinomial logistic regression
-* Education: ordinal logistic regression
-* Age: Student-t regression
+| Target | Best current model | Result | Mendeley benchmark | Reading |
+|---|---|---|---|---|
+| Gender | multinomial logit, `position_importance` | macro F1 0.441, weighted F1 0.659, accuracy 0.667 (n=3775) | macro F1 0.471 (XGBoost) | Small gap. Macro F1 far below accuracy suggests "diverse" is rarely or never predicted (to be confirmed by the per-class report). |
+| Region | hierarchical multinomial logit (all feature sets identical) | macro F1 0.030, weighted F1 0.546, accuracy 0.677 (n=3759) | none (planned for dataset v2) | Identical to an "always Lima" predictor with about 27 classes. Features currently change nothing. |
+| Education | ordinal logit, `position_importance` | macro F1 0.191, weighted F1 0.424, accuracy 0.571 (n=3668) | F1 0.397 (Random Forest; macro or weighted not stated) | Close to a majority-class baseline. The gap is large if the benchmark is macro F1, absent if it is weighted. |
+| Age | Student-t, nonlinear, `all` (`position_importance` nearly equal) | MAE 8.48, RMSE 11.96, R² about 0.12 (estimate) (n=3622) | MAE 7.38, MSE 103.5 (RMSE 10.17), R² 0.366 (XGBoost) | Nonlinear beats linear by about 0.25 years MAE, but the gap to the benchmark is about 1.1 years. |
 
-  * linear specification
-  * quadratic/nonlinear specification
+The R² for age is derived from the benchmark's MSE and R² (implied variance about 163) and is approximate.
 
-The current held-out validation results provide the reference performance for all subsequent experiments.
-
-The Mendeley results provide an external benchmark for comparison.
-
----
-
-# 2. Normalized interactions
-
-The first model extension will introduce interactions between survey variables.
-
-The motivation is that the effect of one survey response may depend on another response.
-
-Instead of assuming:
-
-```text
-effect of question A
-+
-effect of question B
-```
-
-the model can represent:
-
-```text
-effect of question A
-+
-effect of question B
-+
-interaction between A and B
-```
-
-### Bayesian specification
-
-Interactions should be constructed using normalized/standardized predictors rather than directly multiplying the original variables.
-
-The interaction coefficients should receive appropriate regularizing Bayesian priors so that unnecessary interactions are shrunk toward zero.
-
-We should initially avoid unrestricted higher-order interactions.
-
-### Evaluation
-
-For each target:
-
-1. Fit the interaction model on the training data.
-2. Generate predictions for the same held-out test set.
-3. Calculate the same validation metrics.
-4. Compare against the current reference model.
-5. Examine whether the additional complexity produces a meaningful improvement.
-
-If interactions improve performance, continue investigating them.
-
-If they do not, retain the simpler model and move to the next extension.
+**Feature sets.** `combined` is never the best and `all` does not beat `position_importance` for gender, education or the nonlinear age model. Differences are within noise. For all extension experiments, use **`position_importance` (40 predictors)**.
 
 ---
 
-# 3. Hierarchical effects
+## 2. Evaluation protocol
 
-The next major extension will introduce more hierarchical structure across the 20 survey questions.
+### 2.1 Splits
 
-The questions are related and currently have separate coefficients. A hierarchical model can allow these effects to partially pool:
+- During single-target model comparison, keep the existing per-target stratified 80/20 split (age: random). Splits are stratified per target.
+- For anything that chains targets (section 4.3), switch to **one shared split** for all targets, stratified on a combined key (for example gender × region with small cells merged, or region alone). Otherwise a respondent can be in the test set for one target and in the training set for another, which leaks information through the chain.
+- Compare models for the same target on the **same held-out observations**.
 
-```text
-                 shared distribution
-                         │
-          ┌──────────────┼──────────────┐
-          ↓              ↓              ↓
-      question 1     question 2     question 20
-```
+### 2.2 Metric phases
 
-This allows information to be shared across questions while retaining question-specific effects.
+- **Phase 1 (model development).** Classification: macro F1, weighted F1, accuracy, per-class precision/recall/F1. Age: MAE, RMSE. Education additionally uses an ordinal-aware measure.
+- **Phase 2 (before any imputation is run).** Add log loss, Brier score, calibration, and prediction-interval coverage for age, for the leading models.
+- The final model per target is chosen **after Phase 2**. Phase 1 rankings are provisional.
+- Save per-observation posterior class probabilities and posterior predictive summaries for the test set during Phase 1, so Phase 2 needs no refitting.
 
-### Possible structure
+### 2.3 Comparing models
 
-Question-specific coefficients can be modeled as:
-
-```text
-question effect ~ Normal(shared mean, shared scale)
-```
-
-with the shared parameters receiving Bayesian priors.
-
-### Evaluation
-
-Again:
-
-1. Train on the same training observations.
-2. Predict the same test observations.
-3. Calculate the same metrics.
-4. Compare against the best model established so far.
-
-The purpose is to determine whether partial pooling improves generalization relative to treating all question effects independently.
+- During development, compare candidates with **PSIS-LOO / ELPD** on the training data. Fall back to k-fold CV where Pareto-k diagnostics are unreliable (for example very small regions).
+- Keep the test set for the final check, and report **bootstrap intervals** on test metrics.
+- Report convergence diagnostics (R-hat, ESS, divergences) for every extension.
 
 ---
 
-# 4. Demographics as predictors
+## 3. Experiments per target
 
-After evaluating the survey-only model improvements, investigate whether demographic information can improve prediction.
+Experiments are run in the order listed. Each one is compared against the best model so far; if it does not help, the simpler model is kept.
 
-The general structure becomes:
+### 3.1 Gender
 
-```text
-survey responses
-        +
-completed demographics
+1. Per-class report; report "diverse" separately from macro F1.
+2. Interactions (4.1) and hierarchical pooling across questions (4.2).
+3. SMOTE-NC for "diverse" (4.4). Prior or threshold adjustment is not planned.
+4. Demographics as predictors: age, education, region (4.3).
+
+### 3.2 Region
+
+1. **Diagnose first.** Inspect posterior coefficients and class probabilities for a sample of test rows. If they vary by respondent, the argmax is simply always Lima. If they are nearly identical, the model is collapsing to the prior (over-shrinkage or a bug).
+2. Different hierarchical models (4.2), including a macro-region hierarchy (for example Lima, coast, sierra, selva) so small regions borrow strength.
+3. Interactions (4.1).
+4. Thresholds or SMOTE-NC on the macro-regions.
+5. Demographics as predictors (4.3).
+
+### 3.3 Education
+
+1. Interactions (4.1).
+2. Threshold adjustment, then SMOTE-NC (4.4).
+3. Partial proportional-odds model (relaxes the assumption that each predictor shifts all category boundaries equally).
+4. Hierarchical variants (4.2); BART if gaps remain (4.5).
+5. Demographics as predictors, especially age (4.3), last.
+
+### 3.4 Age
+
+1. Interactions (4.1).
+2. Demographics as predictors: education and gender (4.3).
+3. Heteroscedastic Student-t (residual scale depends on predictors); also check a log transform of age.
+4. Hierarchical variants (4.2).
+5. BART if gaps remain (4.5).
+
+---
+
+## 4. Method notes
+
+### 4.1 Normalized interactions
+
+- Build interactions from standardized predictors. With 20 questions there are 190 pairwise terms (more if importance is included), so use a sparsity prior (regularized horseshoe or R2D2) that shrinks unneeded terms toward zero.
+- Avoid unrestricted higher-order interactions at first.
+
+### 4.2 Hierarchical models
+
+Compare these variants separately, one change at a time, using the same split and PSIS-LOO:
+
+- Partial pooling across the 20 question effects (`question effect ~ Normal(shared mean, shared scale)`).
+- Macro-region hierarchy for region.
+- Group-varying slopes by demographic.
+
+### 4.3 Demographics as predictors
+
+**Step 4a: observed demographics with mode fill.**
+
+- Use the other demographics as predictors. Never use the target itself.
+- Fill missing predictor values with the mode **and add a "was missing" indicator** for each demographic, so a filled value does not look like a real answer.
+- **Masked evaluation is required.** Test rows have the target observed, so these respondents mostly answered the other demographic questions as well. The rows to be imputed in practice mostly did not. Report test performance both with the real predictors and with the other demographics masked at the missingness rate seen among the rows to be imputed. Only the masked version is a realistic estimate for imputation.
+
+**Step 4b: chained prediction.** After 4a:
+
+- Fit demographic models on the training data and pass **posterior draws or probabilities**, not hard labels.
+- Train the second stage on out-of-fold predictions (cross-fitting), not on true values, to avoid a train/serve mismatch.
+- The test data must never be used to fit the demographic models. Use the shared split from 2.1.
+
+Predictions from the survey alone add no new information beyond what the survey already contains. Gains are expected only through model structure or through observed demographics.
+
+### 4.4 SMOTE
+
+- Split first; generate synthetic rows from training data only, and inside each CV fold if CV is used.
+- Predictors are discrete (−1/0/+1 and 0/1), so use SMOTE-NC (or another categorical-aware variant); standard SMOTE interpolates into values that do not exist.
+- SMOTE changes the class balance the model sees, so posterior probabilities no longer reflect real frequencies. Correct them back to the real class priors afterwards if `*_confidence` values or calibration checks are used.
+- Compare against threshold adjustment where both are planned.
+
+### 4.5 Flexible nonlinear models
+
+BART or a similar Bayesian tree ensemble is a conditional step: try it only if interactions and hierarchical effects leave a clear gap to the benchmark. It gives tree-like flexibility with posterior uncertainty.
+
+---
+
+## 5. Decision rule
+
+```
+Current best model
         ↓
-target prediction
+Does the extension improve validation (by the agreed threshold)?
+   ┌────┴────┐
+  YES        NO
+   │          │
+   ▼          ▼
+new reference  keep the simpler model
+   │          │
+   └────┬─────┘
+        ↓
+next planned experiment
 ```
 
-The demographic variables considered are:
-
-* gender
-* region
-* education
-* age
-
-### Important validation requirement
-
-Demographic completion must respect the train/test boundary.
-
-For example:
-
-```text
-TRAIN
-  ↓
-fit demographic model
-  ↓
-predict missing demographics
-  ↓
-construct enriched training predictors
-  ↓
-fit final model
-
-
-TEST
-  ↓
-use only training-fitted demographic model
-  ↓
-predict missing demographics
-  ↓
-construct enriched test predictors
-  ↓
-evaluate
-```
-
-The test data must never be used to fit the demographic-imputation models.
-
-### Hard versus probabilistic demographic predictors
-
-We should initially consider whether demographic information should be represented as:
-
-* hard predicted categories, or
-* posterior class probabilities.
-
-For Bayesian modeling, posterior probabilities may be particularly useful because they retain uncertainty rather than treating an uncertain prediction as a known fact.
-
-For age, posterior uncertainty can similarly be propagated rather than using only a single predicted age.
+There is no fixed stopping point. The work continues until either predictive performance approaches or exceeds the benchmark, or further complexity no longer produces meaningful gains. Both outcomes are informative.
 
 ---
 
-# 5. Continue improving if performance improves
+## 6. Not current priorities
 
-There is no predetermined stopping point after the first extension.
-
-The Mendeley results provide a benchmark, but they are not a hard ceiling.
-
-The decision process should be:
-
-```text
-Current model
-      ↓
-Does extension improve validation?
-      │
-   ┌──┴──┐
-  YES    NO
-   │      │
-   ▼      ▼
-keep    retain simpler
-   │      │
-   └──┬───┘
-      ↓
-try next justified extension
-```
-
-If an extension produces a meaningful improvement, it becomes the new reference model and further improvements can be investigated.
-
-If an extension does not improve predictive performance, the simpler model should be retained rather than adding complexity without evidence of benefit.
-
----
-
-# 6. Model comparison criteria
-
-Every extension should be evaluated using the existing held-out test framework.
-
-For classification:
-
-* Accuracy
-* Macro F1
-* Weighted F1
-* Class-specific precision
-* Class-specific recall
-* Class-specific F1
-
-For age:
-
-* MAE
-* RMSE
-
-In addition, Bayesian-specific considerations should be examined where useful:
-
-* predictive uncertainty
-* posterior behavior
-* convergence diagnostics
-* whether additional complexity produces unstable estimates
-
-A small numerical improvement should not automatically justify a substantially more complicated model.
-
----
-
-# 7. Current priority
-
-The improvement branch is intentionally limited to three main directions:
-
-```text
-1. Normalized interactions
-          ↓
-2. Hierarchical effects
-          ↓
-3. Demographics as predictors
-```
-
-Alternative priors, latent-factor models, joint demographic models, sophisticated nonlinear functions, and detailed missingness models are **not current priorities**.
-
-They can be reconsidered later if the main improvement path does not produce sufficient predictive performance.
-
----
-
-## Overall principle
-
-The project should remain empirical and incremental.
-
-We do not assume that a more complex Bayesian model will perform better.
-
-Each extension must demonstrate its value on held-out data.
-
-The Mendeley results provide an external benchmark, while the Bayesian models are progressively improved until either:
-
-1. predictive performance approaches or exceeds the benchmark, or
-2. further complexity no longer produces meaningful improvements.
-
-In either case, the experimental results are informative.
+Alternative priors beyond the sparsity priors above, latent-factor models, joint demographic models, and detailed missingness models. They can be reconsidered later if the main path does not produce sufficient performance.
