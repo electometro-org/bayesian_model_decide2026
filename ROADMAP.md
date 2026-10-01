@@ -149,3 +149,5 @@ There is no fixed stopping point. The work continues until either predictive per
 ## 6. Not current priorities
 
 Alternative priors beyond the sparsity priors above, latent-factor models, joint demographic models, and detailed missingness models. They can be reconsidered later if the main path does not produce sufficient performance.
+
+**Later:** theory-informed question categories and sociopolitical profiles, as a new feature set (evaluated against position_importance on the same split and metrics) and as a separate profile component. To keep this cheap, keep the splits, seeds and saved test predictions of the current runs.
